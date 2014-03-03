@@ -1,6 +1,8 @@
 package tcw.domain.util;
 
 
+import tcw.domain.avro.java.AddressAvroV1;
+import tcw.domain.avro.java.EmployeeAvroV1;
 import tcw.domain.extern.v1.AddressExtV1;
 import tcw.domain.extern.v1.EmployeeExtV1;
 import tcw.domain.v1.AddressV1;
@@ -35,4 +37,19 @@ public class Populated {
         employeeExtV1.setAddressExtV1(addressExtV1);
         return employeeExtV1;
     }
+
+    public static EmployeeAvroV1 avroEmployee(){
+        AddressAvroV1 addressExtV1 = new AddressAvroV1();
+        addressExtV1.setCity("New York");
+        addressExtV1.setHomeNo(555234124);
+        addressExtV1.setStreet("Harlem");
+
+        EmployeeAvroV1 employeeExtV1 = new EmployeeAvroV1();
+        employeeExtV1.setEmployeeId(12345);
+        employeeExtV1.setDepartment("IT");
+        employeeExtV1.setEmployeeName("John Doe");
+        employeeExtV1.setAddressV1(addressExtV1);
+        return employeeExtV1;
+    }
+
 }

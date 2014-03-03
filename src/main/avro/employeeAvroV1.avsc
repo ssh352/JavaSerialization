@@ -1,0 +1,40 @@
+{"namespace": "tcw.domain.avro.java",
+    "type": "record",
+    "name": "EmployeeAvroV1",
+    "fields": [
+        {
+            "name": "employeeId",
+            "type": ["int", "null"]
+        },
+        {
+            "name": "employeeName",
+            "type": ["string", "null"]
+        },
+        {
+            "name": "department",
+            "type": ["string", "null"]
+        },
+        {
+            "name": "addressV1",
+            "type": {
+                "namespace": "tcw.domain.avro.java",
+                "type": "record",
+                "name": "AddressAvroV1",
+                "fields": [
+                    {
+                        "name": "homeNo",
+                        "type": ["int", "null"]
+                    },
+                    {
+                        "name": "street",
+                        "type": ["string", "null"]
+                    },
+                    {
+                        "name": "city",
+                        "type": ["string", "null"]
+                    }
+                ]
+            }
+        }
+    ]
+}
