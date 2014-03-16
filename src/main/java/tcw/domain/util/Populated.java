@@ -5,6 +5,7 @@ import tcw.domain.avro.java.AddressAvroV1;
 import tcw.domain.avro.java.EmployeeAvroV1;
 import tcw.domain.extern.v1.AddressExtV1;
 import tcw.domain.extern.v1.EmployeeExtV1;
+import tcw.domain.protobuf.EmployeeProto;
 import tcw.domain.v1.AddressV1;
 import tcw.domain.v1.EmployeeV1;
 
@@ -50,6 +51,17 @@ public class Populated {
         employeeExtV1.setEmployeeName("John Doe");
         employeeExtV1.setAddressV1(addressExtV1);
         return employeeExtV1;
+    }
+
+    public static EmployeeProto.EmployeeProtobuf protobufEmployee(){
+        return EmployeeProto.EmployeeProtobuf.newBuilder()
+                .setEmployeeId(12345)
+                .setDepartment("IT")
+                .setEmployeeName("John Doe")
+                .addAddress(EmployeeProto.EmployeeProtobuf.Address.newBuilder()
+                        .setHomeNo(555234124)
+                        .setCity("New York")
+                        .setStreet("Harlem").build()).build();
     }
 
 }

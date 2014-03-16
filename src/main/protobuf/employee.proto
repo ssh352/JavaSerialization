@@ -1,0 +1,18 @@
+package employees;
+
+option java_package = "tcw.domain.protobuf";
+option java_outer_classname = "EmployeeProto";
+
+message EmployeeProtobuf {
+  required int32 employeeId = 1;
+  required string employeeName = 2;
+  optional string department = 3;
+
+  message Address {
+    required int32 homeNo = 1;
+    required string street = 2;
+    required string city = 3;
+  }
+
+  repeated Address address = 4;
+}
