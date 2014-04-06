@@ -1,0 +1,39 @@
+<messageSchema package="javabin"
+               id="1"
+               version="0"
+               semanticVersion="5.2"
+               description="JavaBin test"
+               byteOrder="littleEndian">
+    <types>
+        <composite name="messageHeader" description="Message identifiers and length of message root">
+            <type name="blockLength" primitiveType="uint16"/>
+            <type name="templateId" primitiveType="uint16"/>
+            <type name="schemaId" primitiveType="uint16"/>
+            <type name="version" primitiveType="uint16"/>
+        </composite>
+        <composite name="groupSizeEncoding" description="Repeating group dimensions">
+            <type name="blockLength" primitiveType="uint16"/>
+            <type name="numInGroup" primitiveType="uint8"/>
+        </composite>
+        <composite name="varDataEncoding">
+            <type name="length" primitiveType="uint8"/>
+            <type name="varData" primitiveType="uint8" length="0" characterEncoding="UTF-8"/>
+        </composite>
+    </types>
+    <types>
+        <type name="EmployeeId" primitiveType="uint32"/>
+        <type name="EmployeeName"  primitiveType="char" length="30"/>
+        <type name="Department"  primitiveType="char" length="30"/>
+        <composite name="AddressSbe">
+            <type name="homeNo" primitiveType="uint32"/>
+            <type name="street" primitiveType="char" length="30"/>
+            <type name="city" primitiveType="char" length="30"/>
+        </composite>
+    </types>
+    <message name="EmployeeSbe" id="1" description="Description of a basic Employee">
+        <field name="employeeId" id="1" type="EmployeeId"/>
+        <field name="employeeName" id="2" type="EmployeeName"/>
+        <field name="department" id="3" type="Department"/>
+        <field name="address" id="4" type="AddressSbe"/>
+    </message>
+</messageSchema>
