@@ -5,6 +5,8 @@ import com.google.common.base.Stopwatch;
 import org.junit.Test;
 import tcw.domain.util.Populated;
 import tcw.domain.v1.EmployeeV1;
+import tcw.serialzation.HelperUtils;
+import tcw.serialzation.messagepack.MsgPackSerialization;
 
 public class PlainSerializationTest {
 
@@ -15,6 +17,16 @@ public class PlainSerializationTest {
         byte[] serializedEmployee = plainSerialization.serialize(employeeV1);
         EmployeeV1 deserializedEmployeeV1 = plainSerialization.deserialize(serializedEmployee);
         System.out.println(deserializedEmployeeV1);
+    }
+
+    @Test
+    public void serializationSize() throws Exception {
+        PlainSerialization plainSerialization = new PlainSerialization();
+        EmployeeV1 employeeV1 = Populated.employee();
+        byte[] serializedEmployee = plainSerialization.serialize(employeeV1);
+        String hex = HelperUtils.prettyHex16(serializedEmployee);
+        System.out.println("SIZE: " + serializedEmployee.length + " bytes");
+        System.out.println(hex);
     }
 
     @Test

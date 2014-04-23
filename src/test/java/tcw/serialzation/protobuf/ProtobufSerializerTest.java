@@ -5,6 +5,9 @@ import com.google.common.base.Stopwatch;
 import org.junit.Test;
 import tcw.domain.protobuf.EmployeeProto;
 import tcw.domain.util.Populated;
+import tcw.domain.v1.EmployeeV1;
+import tcw.serialzation.HelperUtils;
+import tcw.serialzation.plain.PlainSerialization;
 
 public class ProtobufSerializerTest {
 
@@ -15,6 +18,15 @@ public class ProtobufSerializerTest {
         byte[] bytes = employeeProtobuf.toByteArray();
         EmployeeProto.EmployeeProtobuf employeeProtobufObject = EmployeeProto.EmployeeProtobuf.newBuilder().mergeFrom(bytes).build();
         System.out.println(employeeProtobufObject);
+    }
+
+    @Test
+    public void serializationSize() throws Exception {
+        EmployeeProto.EmployeeProtobuf employeeProtobuf = Populated.protobufEmployee();
+        byte[] serializedEmployee = employeeProtobuf.toByteArray();
+        String hex = HelperUtils.prettyHex16(serializedEmployee);
+        System.out.println("SIZE: " + serializedEmployee.length + " bytes");
+        System.out.println(hex);
     }
 
     @Test

@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import org.junit.Test;
 import tcw.domain.avro.java.EmployeeAvroV1;
 import tcw.domain.util.Populated;
+import tcw.serialzation.HelperUtils;
 
 import java.util.List;
 
@@ -18,6 +19,17 @@ public class AvroSerializerTest {
         List<EmployeeAvroV1> employeeAvroV1s = avroSerializer.deserialize(serializedEmployee);
         System.out.println(employeeAvroV1s.get(0));
     }
+
+    @Test
+    public void serializationSize() throws Exception {
+        AvroSerializer avroSerializer = new AvroSerializer();
+        EmployeeAvroV1 employeeV1 = Populated.avroEmployee();
+        byte[] serializedEmployee = avroSerializer.serialize(Lists.newArrayList(employeeV1));
+        String hex = HelperUtils.prettyHex16(serializedEmployee);
+        System.out.println("SIZE: " + serializedEmployee.length + " bytes");
+        System.out.println(hex);
+    }
+
 
     @Test
     public void benchmark() throws Exception {
