@@ -3,6 +3,7 @@ package tcw.serialzation.kryo;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import tcw.domain.Employee;
 import tcw.domain.v1.EmployeeV1;
 
 import java.io.ByteArrayInputStream;
@@ -13,22 +14,22 @@ public class KryoSerializer {
 
     private Kryo kryo = new Kryo();
 
-    public byte[] serialize(EmployeeV1 employeeV1) throws IOException {
+    public byte[] serialize(Employee employee) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         Output output = new Output(bos);
-        kryo.writeObject(output, employeeV1);
+        kryo.writeObject(output, employee);
         output.close();
         byte[] bytes = bos.toByteArray();
         bos.close();
         return bytes;
     }
 
-    public EmployeeV1 deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
+    public Employee deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         Input input = new Input(bis);
-        EmployeeV1 employeeV1 = kryo.readObject(input, EmployeeV1.class);
+        Employee employee = kryo.readObject(input, Employee.class);
         input.close();
         bis.close();
-        return employeeV1;
+        return employee;
     }
 }

@@ -1,26 +1,28 @@
 package tcw.serialzation.jackson;
 
 import org.codehaus.jackson.map.ObjectMapper;
-import tcw.domain.v1.EmployeeV1;
+import tcw.domain.Employee;
 
-import java.io.*;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 
 public class JacksonSerializer {
 
     private ObjectMapper mapper = new ObjectMapper();
 
-    public byte[] serialize(EmployeeV1 employeeV1) throws IOException {
+    public byte[] serialize(Employee employee) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        mapper.writeValue(bos, employeeV1);
+        mapper.writeValue(bos, employee);
         bos.close();
         return bos.toByteArray();
     }
 
-    public EmployeeV1 deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
+    public Employee deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-        EmployeeV1 employeeV1 = mapper.readValue(bis, EmployeeV1.class);
+        Employee employee = mapper.readValue(bis, Employee.class);
         bis.close();
-        return employeeV1;
+        return employee;
     }
 }

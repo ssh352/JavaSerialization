@@ -1,27 +1,34 @@
 package tcw.serialzation.kryo;
 
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 import com.google.common.base.Stopwatch;
 import org.junit.Test;
+import tcw.domain.Employee;
 import tcw.domain.util.Populated;
 import tcw.domain.v1.EmployeeV1;
 import tcw.serialzation.HelperUtils;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 
 public class KryoSerializerTest {
 
     @Test
     public void validation() throws Exception {
         KryoSerializer kryoSerializer = new KryoSerializer();
-        EmployeeV1 employeeV1 = Populated.employee();
-        byte[] serializedEmployee = kryoSerializer.serialize(employeeV1);
-        EmployeeV1 deserializedEmployeeV1 = kryoSerializer.deserialize(serializedEmployee);
-        System.out.println(deserializedEmployeeV1);
+        Employee employee = Populated.employee();
+        byte[] serializedEmployee = kryoSerializer.serialize(employee);
+        Employee deserializedEmployee = kryoSerializer.deserialize(serializedEmployee);
+        System.out.println(deserializedEmployee);
     }
 
     @Test
     public void serializationSize() throws Exception {
         KryoSerializer kryoSerializer = new KryoSerializer();
-        EmployeeV1 employeeV1 = Populated.employee();
-        byte[] serializedEmployee = kryoSerializer.serialize(employeeV1);
+        Employee employee = Populated.employee();
+        byte[] serializedEmployee = kryoSerializer.serialize(employee);
         String hex = HelperUtils.prettyHex16(serializedEmployee);
         System.out.println("SIZE: " + serializedEmployee.length + " bytes");
         System.out.println(hex);
@@ -29,16 +36,31 @@ public class KryoSerializerTest {
 
     @Test
     public void benchmark() throws Exception {
-        KryoSerializer kryoSerializer = new KryoSerializer();
-        EmployeeV1 employeeV1 = Populated.employee();
-        EmployeeV1 deserializedEmployeeV1 = null;
+        Employee employee = Populated.employee();
+        Kryo kryo = new Kryo();
         Stopwatch stopwatch = Stopwatch.createStarted();
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        Output output = new Output(bos);
         for (int i = 0; i < 1000000; i++) {
-            byte[] serializedEmployee = kryoSerializer.serialize(employeeV1);
-            deserializedEmployeeV1 = kryoSerializer.deserialize(serializedEmployee);
+            kryo.writeObject(output, employee);
         }
+        output.close();
+        byte[] bytes = bos.toByteArray();
+        bos.close();
+
+        System.out.println("SIZE:" + bytes.length);
+
+        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+        Input input = new Input(bis);
+        Employee employeeDeserialized = new Employee();
+        for (int i = 0; i < 1000000; i++) {
+            employeeDeserialized = kryo.readObject(input, Employee.class);
+        }
+        input.close();
+        bis.close();
         stopwatch.stop();
         System.out.println(stopwatch.toString());
+        System.out.println(employeeDeserialized.toString());
     }
 
 }
