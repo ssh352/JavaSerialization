@@ -1,29 +1,38 @@
 package tcw.serialzation.messagepack;
 
 
-import com.google.common.base.Stopwatch;
 import org.junit.Test;
-import tcw.domain.Employee;
+import org.msgpack.MessagePack;
+import org.msgpack.packer.Packer;
+import org.msgpack.unpacker.Unpacker;
+import tcw.domain.messagepack.Employee;
 import tcw.domain.util.Populated;
-import tcw.domain.v1.EmployeeV1;
-import tcw.serialzation.HelperUtils;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 
 public class MsgPackSerializationTest {
 
-//    @Test
-//    public void validation() throws Exception {
-//        MsgPackSerialization msgPackSerialization = new MsgPackSerialization();
-//        Employee employeeV1 = Populated.employee();
-//        byte[] serializedEmployee = msgPackSerialization.serialize(employeeV1);
-//        EmployeeV1 deserializedEmployeeV1 = msgPackSerialization.deserialize(serializedEmployee);
-//        System.out.println(deserializedEmployeeV1);
-//    }
-//
+    @Test
+    public void validation() throws Exception {
+        MsgPackSerialization msgPackSerialization = new MsgPackSerialization();
+        Employee employee = Populated.employeeMessagepack();
+        MessagePack messagePack = new MessagePack();
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        Packer packer = messagePack.createPacker(bos);
+        employee.serialize(packer);
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(bos.toByteArray());
+        Unpacker unpacker = messagePack.createUnpacker(inputStream);
+        Employee deserializedEmployee = new Employee();
+        deserializedEmployee.deserialize(unpacker);
+        System.out.println(deserializedEmployee);
+    }
+
 //    @Test
 //    public void serializationSize() throws Exception {
 //        MsgPackSerialization msgPackSerialization = new MsgPackSerialization();
-//        EmployeeV1 employeeV1 = Populated.employee();
-//        byte[] serializedEmployee = msgPackSerialization.serialize(employeeV1);
+//        Employee employee = Populated.employeeMessagepack();
+//        byte[] serializedEmployee = msgPackSerialization.serialize(employee);
 //        String hex = HelperUtils.prettyHex16(serializedEmployee);
 //        System.out.println("SIZE: " + serializedEmployee.length + " bytes");
 //        System.out.println(hex);
@@ -33,8 +42,8 @@ public class MsgPackSerializationTest {
 //    @Test
 //    public void benchmark() throws Exception {
 //        MsgPackSerialization msgPackSerialization = new MsgPackSerialization();
-//        EmployeeV1 employeeV1 = Populated.employee();
-//        EmployeeV1 deserializedEmployeeV1 = null;
+//        Employee employeeV1 = Populated.employee();
+//        Employee deserializedEmployeeV1 = null;
 //        Stopwatch stopwatch = Stopwatch.createStarted();
 //        for (int i = 0; i < 1000000; i++) {
 //            byte[] serializedEmployee = msgPackSerialization.serialize(employeeV1);

@@ -5,14 +5,13 @@ import com.google.common.base.Stopwatch;
 import org.junit.Test;
 import tcw.domain.Employee;
 import tcw.domain.util.Populated;
-import tcw.domain.v1.EmployeeV1;
 import tcw.serialzation.HelperUtils;
-import tcw.serialzation.messagepack.MsgPackSerialization;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.List;
 
 public class PlainSerializationTest {
 
@@ -37,13 +36,14 @@ public class PlainSerializationTest {
 
     @Test
     public void benchmark() throws Exception {
-        Employee employee = Populated.employee();
+        List<Employee> employees = Populated.employees(3);
         Stopwatch stopwatch = Stopwatch.createStarted();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(bos);
-        for (int i = 0; i < 1000000; i++) {
+        for (Employee employee : employees) {
             objectOutputStream.writeObject(employee);
         }
+
         objectOutputStream.close();
         byte[] bytes = bos.toByteArray();
         bos.close();
@@ -52,7 +52,7 @@ public class PlainSerializationTest {
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         ObjectInputStream objectInputStream = new ObjectInputStream(bis);
         Employee employeeDeserialized = new Employee();
-        for (int i = 0; i < 1000000; i++) {
+        for (int i = 0; i < employees.size(); i++) {
             employeeDeserialized = (Employee) objectInputStream.readObject();
         }
         objectInputStream.close();

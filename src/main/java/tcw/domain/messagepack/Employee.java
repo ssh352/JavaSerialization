@@ -79,4 +79,14 @@ public class Employee {
         departments = (List<String>) unpacker.read(listStringTemp);
     }
 
+    @Override
+    public String toString() {
+        return "Employee{" +
+                "employeeId=" + employeeId +
+                ", salery=" + salery +
+                ", consultant=" + consultant +
+                ", employeeName='" + employeeName + '\'' +
+                ", departments=" + departments +
+                '}';
+    }
 }

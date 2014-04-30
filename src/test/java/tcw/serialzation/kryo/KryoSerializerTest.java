@@ -7,11 +7,11 @@ import com.google.common.base.Stopwatch;
 import org.junit.Test;
 import tcw.domain.Employee;
 import tcw.domain.util.Populated;
-import tcw.domain.v1.EmployeeV1;
 import tcw.serialzation.HelperUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.List;
 
 public class KryoSerializerTest {
 
@@ -36,12 +36,13 @@ public class KryoSerializerTest {
 
     @Test
     public void benchmark() throws Exception {
-        Employee employee = Populated.employee();
+
         Kryo kryo = new Kryo();
+        List<Employee> employees = Populated.employees(2);
         Stopwatch stopwatch = Stopwatch.createStarted();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         Output output = new Output(bos);
-        for (int i = 0; i < 1000000; i++) {
+        for (Employee employee : employees) {
             kryo.writeObject(output, employee);
         }
         output.close();
@@ -53,7 +54,7 @@ public class KryoSerializerTest {
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
         Input input = new Input(bis);
         Employee employeeDeserialized = new Employee();
-        for (int i = 0; i < 1000000; i++) {
+        for (int i = 0; i < employees.size(); i++) {
             employeeDeserialized = kryo.readObject(input, Employee.class);
         }
         input.close();
