@@ -8,93 +8,93 @@ public final class EmployeeProto {
   public static void registerAllExtensions(
       com.google.protobuf.ExtensionRegistry registry) {
   }
-  public interface EmployeeProtobufOrBuilder
+  public interface EmployeeOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // required int32 employeeId = 1;
+    // required int64 employeeId = 1;
     /**
-     * <code>required int32 employeeId = 1;</code>
+     * <code>required int64 employeeId = 1;</code>
      */
     boolean hasEmployeeId();
     /**
-     * <code>required int32 employeeId = 1;</code>
+     * <code>required int64 employeeId = 1;</code>
      */
-    int getEmployeeId();
+    long getEmployeeId();
 
-    // required string employeeName = 2;
+    // required double salery = 2;
     /**
-     * <code>required string employeeName = 2;</code>
+     * <code>required double salery = 2;</code>
+     */
+    boolean hasSalery();
+    /**
+     * <code>required double salery = 2;</code>
+     */
+    double getSalery();
+
+    // required bool consultant = 3;
+    /**
+     * <code>required bool consultant = 3;</code>
+     */
+    boolean hasConsultant();
+    /**
+     * <code>required bool consultant = 3;</code>
+     */
+    boolean getConsultant();
+
+    // required string employeeName = 4;
+    /**
+     * <code>required string employeeName = 4;</code>
      */
     boolean hasEmployeeName();
     /**
-     * <code>required string employeeName = 2;</code>
+     * <code>required string employeeName = 4;</code>
      */
     java.lang.String getEmployeeName();
     /**
-     * <code>required string employeeName = 2;</code>
+     * <code>required string employeeName = 4;</code>
      */
     com.google.protobuf.ByteString
         getEmployeeNameBytes();
 
-    // optional string department = 3;
+    // repeated string departments = 5;
     /**
-     * <code>optional string department = 3;</code>
+     * <code>repeated string departments = 5;</code>
      */
-    boolean hasDepartment();
+    java.util.List<java.lang.String>
+    getDepartmentsList();
     /**
-     * <code>optional string department = 3;</code>
+     * <code>repeated string departments = 5;</code>
      */
-    java.lang.String getDepartment();
+    int getDepartmentsCount();
     /**
-     * <code>optional string department = 3;</code>
+     * <code>repeated string departments = 5;</code>
+     */
+    java.lang.String getDepartments(int index);
+    /**
+     * <code>repeated string departments = 5;</code>
      */
     com.google.protobuf.ByteString
-        getDepartmentBytes();
-
-    // repeated .employees.EmployeeProtobuf.Address address = 4;
-    /**
-     * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-     */
-    java.util.List<tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address> 
-        getAddressList();
-    /**
-     * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-     */
-    tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address getAddress(int index);
-    /**
-     * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-     */
-    int getAddressCount();
-    /**
-     * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-     */
-    java.util.List<? extends tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.AddressOrBuilder> 
-        getAddressOrBuilderList();
-    /**
-     * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-     */
-    tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.AddressOrBuilder getAddressOrBuilder(
-        int index);
+        getDepartmentsBytes(int index);
   }
   /**
-   * Protobuf type {@code employees.EmployeeProtobuf}
+   * Protobuf type {@code employees.Employee}
    */
-  public static final class EmployeeProtobuf extends
+  public static final class Employee extends
       com.google.protobuf.GeneratedMessage
-      implements EmployeeProtobufOrBuilder {
-    // Use EmployeeProtobuf.newBuilder() to construct.
-    private EmployeeProtobuf(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      implements EmployeeOrBuilder {
+    // Use Employee.newBuilder() to construct.
+    private Employee(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
       this.unknownFields = builder.getUnknownFields();
     }
-    private EmployeeProtobuf(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private Employee(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
 
-    private static final EmployeeProtobuf defaultInstance;
-    public static EmployeeProtobuf getDefaultInstance() {
+    private static final Employee defaultInstance;
+    public static Employee getDefaultInstance() {
       return defaultInstance;
     }
 
-    public EmployeeProtobuf getDefaultInstanceForType() {
+    public Employee getDefaultInstanceForType() {
       return defaultInstance;
     }
 
@@ -104,7 +104,7 @@ public final class EmployeeProto {
         getUnknownFields() {
       return this.unknownFields;
     }
-    private EmployeeProtobuf(
+    private Employee(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -129,25 +129,30 @@ public final class EmployeeProto {
             }
             case 8: {
               bitField0_ |= 0x00000001;
-              employeeId_ = input.readInt32();
+              employeeId_ = input.readInt64();
               break;
             }
-            case 18: {
+            case 17: {
               bitField0_ |= 0x00000002;
-              employeeName_ = input.readBytes();
+              salery_ = input.readDouble();
               break;
             }
-            case 26: {
+            case 24: {
               bitField0_ |= 0x00000004;
-              department_ = input.readBytes();
+              consultant_ = input.readBool();
               break;
             }
             case 34: {
-              if (!((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
-                address_ = new java.util.ArrayList<tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address>();
-                mutable_bitField0_ |= 0x00000008;
+              bitField0_ |= 0x00000008;
+              employeeName_ = input.readBytes();
+              break;
+            }
+            case 42: {
+              if (!((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+                departments_ = new com.google.protobuf.LazyStringArrayList();
+                mutable_bitField0_ |= 0x00000010;
               }
-              address_.add(input.readMessage(tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.PARSER, extensionRegistry));
+              departments_.add(input.readBytes());
               break;
             }
           }
@@ -158,8 +163,8 @@ public final class EmployeeProto {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
-        if (((mutable_bitField0_ & 0x00000008) == 0x00000008)) {
-          address_ = java.util.Collections.unmodifiableList(address_);
+        if (((mutable_bitField0_ & 0x00000010) == 0x00000010)) {
+          departments_ = new com.google.protobuf.UnmodifiableLazyStringList(departments_);
         }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
@@ -167,791 +172,91 @@ public final class EmployeeProto {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return tcw.domain.protobuf.EmployeeProto.internal_static_employees_EmployeeProtobuf_descriptor;
+      return tcw.domain.protobuf.EmployeeProto.internal_static_employees_Employee_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return tcw.domain.protobuf.EmployeeProto.internal_static_employees_EmployeeProtobuf_fieldAccessorTable
+      return tcw.domain.protobuf.EmployeeProto.internal_static_employees_Employee_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.class, tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Builder.class);
+              tcw.domain.protobuf.EmployeeProto.Employee.class, tcw.domain.protobuf.EmployeeProto.Employee.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<EmployeeProtobuf> PARSER =
-        new com.google.protobuf.AbstractParser<EmployeeProtobuf>() {
-      public EmployeeProtobuf parsePartialFrom(
+    public static com.google.protobuf.Parser<Employee> PARSER =
+        new com.google.protobuf.AbstractParser<Employee>() {
+      public Employee parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new EmployeeProtobuf(input, extensionRegistry);
+        return new Employee(input, extensionRegistry);
       }
     };
 
     @java.lang.Override
-    public com.google.protobuf.Parser<EmployeeProtobuf> getParserForType() {
+    public com.google.protobuf.Parser<Employee> getParserForType() {
       return PARSER;
     }
 
-    public interface AddressOrBuilder
-        extends com.google.protobuf.MessageOrBuilder {
-
-      // required int32 homeNo = 1;
-      /**
-       * <code>required int32 homeNo = 1;</code>
-       */
-      boolean hasHomeNo();
-      /**
-       * <code>required int32 homeNo = 1;</code>
-       */
-      int getHomeNo();
-
-      // required string street = 2;
-      /**
-       * <code>required string street = 2;</code>
-       */
-      boolean hasStreet();
-      /**
-       * <code>required string street = 2;</code>
-       */
-      java.lang.String getStreet();
-      /**
-       * <code>required string street = 2;</code>
-       */
-      com.google.protobuf.ByteString
-          getStreetBytes();
-
-      // required string city = 3;
-      /**
-       * <code>required string city = 3;</code>
-       */
-      boolean hasCity();
-      /**
-       * <code>required string city = 3;</code>
-       */
-      java.lang.String getCity();
-      /**
-       * <code>required string city = 3;</code>
-       */
-      com.google.protobuf.ByteString
-          getCityBytes();
-    }
-    /**
-     * Protobuf type {@code employees.EmployeeProtobuf.Address}
-     */
-    public static final class Address extends
-        com.google.protobuf.GeneratedMessage
-        implements AddressOrBuilder {
-      // Use Address.newBuilder() to construct.
-      private Address(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-        super(builder);
-        this.unknownFields = builder.getUnknownFields();
-      }
-      private Address(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-      private static final Address defaultInstance;
-      public static Address getDefaultInstance() {
-        return defaultInstance;
-      }
-
-      public Address getDefaultInstanceForType() {
-        return defaultInstance;
-      }
-
-      private final com.google.protobuf.UnknownFieldSet unknownFields;
-      @java.lang.Override
-      public final com.google.protobuf.UnknownFieldSet
-          getUnknownFields() {
-        return this.unknownFields;
-      }
-      private Address(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        initFields();
-        int mutable_bitField0_ = 0;
-        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-            com.google.protobuf.UnknownFieldSet.newBuilder();
-        try {
-          boolean done = false;
-          while (!done) {
-            int tag = input.readTag();
-            switch (tag) {
-              case 0:
-                done = true;
-                break;
-              default: {
-                if (!parseUnknownField(input, unknownFields,
-                                       extensionRegistry, tag)) {
-                  done = true;
-                }
-                break;
-              }
-              case 8: {
-                bitField0_ |= 0x00000001;
-                homeNo_ = input.readInt32();
-                break;
-              }
-              case 18: {
-                bitField0_ |= 0x00000002;
-                street_ = input.readBytes();
-                break;
-              }
-              case 26: {
-                bitField0_ |= 0x00000004;
-                city_ = input.readBytes();
-                break;
-              }
-            }
-          }
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          throw e.setUnfinishedMessage(this);
-        } catch (java.io.IOException e) {
-          throw new com.google.protobuf.InvalidProtocolBufferException(
-              e.getMessage()).setUnfinishedMessage(this);
-        } finally {
-          this.unknownFields = unknownFields.build();
-          makeExtensionsImmutable();
-        }
-      }
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return tcw.domain.protobuf.EmployeeProto.internal_static_employees_EmployeeProtobuf_Address_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return tcw.domain.protobuf.EmployeeProto.internal_static_employees_EmployeeProtobuf_Address_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.class, tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.Builder.class);
-      }
-
-      public static com.google.protobuf.Parser<Address> PARSER =
-          new com.google.protobuf.AbstractParser<Address>() {
-        public Address parsePartialFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws com.google.protobuf.InvalidProtocolBufferException {
-          return new Address(input, extensionRegistry);
-        }
-      };
-
-      @java.lang.Override
-      public com.google.protobuf.Parser<Address> getParserForType() {
-        return PARSER;
-      }
-
-      private int bitField0_;
-      // required int32 homeNo = 1;
-      public static final int HOMENO_FIELD_NUMBER = 1;
-      private int homeNo_;
-      /**
-       * <code>required int32 homeNo = 1;</code>
-       */
-      public boolean hasHomeNo() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required int32 homeNo = 1;</code>
-       */
-      public int getHomeNo() {
-        return homeNo_;
-      }
-
-      // required string street = 2;
-      public static final int STREET_FIELD_NUMBER = 2;
-      private java.lang.Object street_;
-      /**
-       * <code>required string street = 2;</code>
-       */
-      public boolean hasStreet() {
-        return ((bitField0_ & 0x00000002) == 0x00000002);
-      }
-      /**
-       * <code>required string street = 2;</code>
-       */
-      public java.lang.String getStreet() {
-        java.lang.Object ref = street_;
-        if (ref instanceof java.lang.String) {
-          return (java.lang.String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            street_ = s;
-          }
-          return s;
-        }
-      }
-      /**
-       * <code>required string street = 2;</code>
-       */
-      public com.google.protobuf.ByteString
-          getStreetBytes() {
-        java.lang.Object ref = street_;
-        if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          street_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-
-      // required string city = 3;
-      public static final int CITY_FIELD_NUMBER = 3;
-      private java.lang.Object city_;
-      /**
-       * <code>required string city = 3;</code>
-       */
-      public boolean hasCity() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
-      }
-      /**
-       * <code>required string city = 3;</code>
-       */
-      public java.lang.String getCity() {
-        java.lang.Object ref = city_;
-        if (ref instanceof java.lang.String) {
-          return (java.lang.String) ref;
-        } else {
-          com.google.protobuf.ByteString bs = 
-              (com.google.protobuf.ByteString) ref;
-          java.lang.String s = bs.toStringUtf8();
-          if (bs.isValidUtf8()) {
-            city_ = s;
-          }
-          return s;
-        }
-      }
-      /**
-       * <code>required string city = 3;</code>
-       */
-      public com.google.protobuf.ByteString
-          getCityBytes() {
-        java.lang.Object ref = city_;
-        if (ref instanceof java.lang.String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          city_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-
-      private void initFields() {
-        homeNo_ = 0;
-        street_ = "";
-        city_ = "";
-      }
-      private byte memoizedIsInitialized = -1;
-      public final boolean isInitialized() {
-        byte isInitialized = memoizedIsInitialized;
-        if (isInitialized != -1) return isInitialized == 1;
-
-        if (!hasHomeNo()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasStreet()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        if (!hasCity()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-        memoizedIsInitialized = 1;
-        return true;
-      }
-
-      public void writeTo(com.google.protobuf.CodedOutputStream output)
-                          throws java.io.IOException {
-        getSerializedSize();
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          output.writeInt32(1, homeNo_);
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          output.writeBytes(2, getStreetBytes());
-        }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          output.writeBytes(3, getCityBytes());
-        }
-        getUnknownFields().writeTo(output);
-      }
-
-      private int memoizedSerializedSize = -1;
-      public int getSerializedSize() {
-        int size = memoizedSerializedSize;
-        if (size != -1) return size;
-
-        size = 0;
-        if (((bitField0_ & 0x00000001) == 0x00000001)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeInt32Size(1, homeNo_);
-        }
-        if (((bitField0_ & 0x00000002) == 0x00000002)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(2, getStreetBytes());
-        }
-        if (((bitField0_ & 0x00000004) == 0x00000004)) {
-          size += com.google.protobuf.CodedOutputStream
-            .computeBytesSize(3, getCityBytes());
-        }
-        size += getUnknownFields().getSerializedSize();
-        memoizedSerializedSize = size;
-        return size;
-      }
-
-      private static final long serialVersionUID = 0L;
-      @java.lang.Override
-      protected java.lang.Object writeReplace()
-          throws java.io.ObjectStreamException {
-        return super.writeReplace();
-      }
-
-      public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address parseFrom(
-          com.google.protobuf.ByteString data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address parseFrom(
-          com.google.protobuf.ByteString data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address parseFrom(byte[] data)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data);
-      }
-      public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address parseFrom(
-          byte[] data,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return PARSER.parseFrom(data, extensionRegistry);
-      }
-      public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address parseFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input);
-      }
-      public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address parseFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input, extensionRegistry);
-      }
-      public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address parseDelimitedFrom(java.io.InputStream input)
-          throws java.io.IOException {
-        return PARSER.parseDelimitedFrom(input);
-      }
-      public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address parseDelimitedFrom(
-          java.io.InputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return PARSER.parseDelimitedFrom(input, extensionRegistry);
-      }
-      public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address parseFrom(
-          com.google.protobuf.CodedInputStream input)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input);
-      }
-      public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address parseFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        return PARSER.parseFrom(input, extensionRegistry);
-      }
-
-      public static Builder newBuilder() { return Builder.create(); }
-      public Builder newBuilderForType() { return newBuilder(); }
-      public static Builder newBuilder(tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address prototype) {
-        return newBuilder().mergeFrom(prototype);
-      }
-      public Builder toBuilder() { return newBuilder(this); }
-
-      @java.lang.Override
-      protected Builder newBuilderForType(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        Builder builder = new Builder(parent);
-        return builder;
-      }
-      /**
-       * Protobuf type {@code employees.EmployeeProtobuf.Address}
-       */
-      public static final class Builder extends
-          com.google.protobuf.GeneratedMessage.Builder<Builder>
-         implements tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.AddressOrBuilder {
-        public static final com.google.protobuf.Descriptors.Descriptor
-            getDescriptor() {
-          return tcw.domain.protobuf.EmployeeProto.internal_static_employees_EmployeeProtobuf_Address_descriptor;
-        }
-
-        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-            internalGetFieldAccessorTable() {
-          return tcw.domain.protobuf.EmployeeProto.internal_static_employees_EmployeeProtobuf_Address_fieldAccessorTable
-              .ensureFieldAccessorsInitialized(
-                  tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.class, tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.Builder.class);
-        }
-
-        // Construct using tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.newBuilder()
-        private Builder() {
-          maybeForceBuilderInitialization();
-        }
-
-        private Builder(
-            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-          super(parent);
-          maybeForceBuilderInitialization();
-        }
-        private void maybeForceBuilderInitialization() {
-          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          }
-        }
-        private static Builder create() {
-          return new Builder();
-        }
-
-        public Builder clear() {
-          super.clear();
-          homeNo_ = 0;
-          bitField0_ = (bitField0_ & ~0x00000001);
-          street_ = "";
-          bitField0_ = (bitField0_ & ~0x00000002);
-          city_ = "";
-          bitField0_ = (bitField0_ & ~0x00000004);
-          return this;
-        }
-
-        public Builder clone() {
-          return create().mergeFrom(buildPartial());
-        }
-
-        public com.google.protobuf.Descriptors.Descriptor
-            getDescriptorForType() {
-          return tcw.domain.protobuf.EmployeeProto.internal_static_employees_EmployeeProtobuf_Address_descriptor;
-        }
-
-        public tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address getDefaultInstanceForType() {
-          return tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.getDefaultInstance();
-        }
-
-        public tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address build() {
-          tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address result = buildPartial();
-          if (!result.isInitialized()) {
-            throw newUninitializedMessageException(result);
-          }
-          return result;
-        }
-
-        public tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address buildPartial() {
-          tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address result = new tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address(this);
-          int from_bitField0_ = bitField0_;
-          int to_bitField0_ = 0;
-          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-            to_bitField0_ |= 0x00000001;
-          }
-          result.homeNo_ = homeNo_;
-          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
-            to_bitField0_ |= 0x00000002;
-          }
-          result.street_ = street_;
-          if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
-            to_bitField0_ |= 0x00000004;
-          }
-          result.city_ = city_;
-          result.bitField0_ = to_bitField0_;
-          onBuilt();
-          return result;
-        }
-
-        public Builder mergeFrom(com.google.protobuf.Message other) {
-          if (other instanceof tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address) {
-            return mergeFrom((tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address)other);
-          } else {
-            super.mergeFrom(other);
-            return this;
-          }
-        }
-
-        public Builder mergeFrom(tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address other) {
-          if (other == tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.getDefaultInstance()) return this;
-          if (other.hasHomeNo()) {
-            setHomeNo(other.getHomeNo());
-          }
-          if (other.hasStreet()) {
-            bitField0_ |= 0x00000002;
-            street_ = other.street_;
-            onChanged();
-          }
-          if (other.hasCity()) {
-            bitField0_ |= 0x00000004;
-            city_ = other.city_;
-            onChanged();
-          }
-          this.mergeUnknownFields(other.getUnknownFields());
-          return this;
-        }
-
-        public final boolean isInitialized() {
-          if (!hasHomeNo()) {
-            
-            return false;
-          }
-          if (!hasStreet()) {
-            
-            return false;
-          }
-          if (!hasCity()) {
-            
-            return false;
-          }
-          return true;
-        }
-
-        public Builder mergeFrom(
-            com.google.protobuf.CodedInputStream input,
-            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-            throws java.io.IOException {
-          tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address parsedMessage = null;
-          try {
-            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-            parsedMessage = (tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address) e.getUnfinishedMessage();
-            throw e;
-          } finally {
-            if (parsedMessage != null) {
-              mergeFrom(parsedMessage);
-            }
-          }
-          return this;
-        }
-        private int bitField0_;
-
-        // required int32 homeNo = 1;
-        private int homeNo_ ;
-        /**
-         * <code>required int32 homeNo = 1;</code>
-         */
-        public boolean hasHomeNo() {
-          return ((bitField0_ & 0x00000001) == 0x00000001);
-        }
-        /**
-         * <code>required int32 homeNo = 1;</code>
-         */
-        public int getHomeNo() {
-          return homeNo_;
-        }
-        /**
-         * <code>required int32 homeNo = 1;</code>
-         */
-        public Builder setHomeNo(int value) {
-          bitField0_ |= 0x00000001;
-          homeNo_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>required int32 homeNo = 1;</code>
-         */
-        public Builder clearHomeNo() {
-          bitField0_ = (bitField0_ & ~0x00000001);
-          homeNo_ = 0;
-          onChanged();
-          return this;
-        }
-
-        // required string street = 2;
-        private java.lang.Object street_ = "";
-        /**
-         * <code>required string street = 2;</code>
-         */
-        public boolean hasStreet() {
-          return ((bitField0_ & 0x00000002) == 0x00000002);
-        }
-        /**
-         * <code>required string street = 2;</code>
-         */
-        public java.lang.String getStreet() {
-          java.lang.Object ref = street_;
-          if (!(ref instanceof java.lang.String)) {
-            java.lang.String s = ((com.google.protobuf.ByteString) ref)
-                .toStringUtf8();
-            street_ = s;
-            return s;
-          } else {
-            return (java.lang.String) ref;
-          }
-        }
-        /**
-         * <code>required string street = 2;</code>
-         */
-        public com.google.protobuf.ByteString
-            getStreetBytes() {
-          java.lang.Object ref = street_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            street_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        /**
-         * <code>required string street = 2;</code>
-         */
-        public Builder setStreet(
-            java.lang.String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-          street_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>required string street = 2;</code>
-         */
-        public Builder clearStreet() {
-          bitField0_ = (bitField0_ & ~0x00000002);
-          street_ = getDefaultInstance().getStreet();
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>required string street = 2;</code>
-         */
-        public Builder setStreetBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000002;
-          street_ = value;
-          onChanged();
-          return this;
-        }
-
-        // required string city = 3;
-        private java.lang.Object city_ = "";
-        /**
-         * <code>required string city = 3;</code>
-         */
-        public boolean hasCity() {
-          return ((bitField0_ & 0x00000004) == 0x00000004);
-        }
-        /**
-         * <code>required string city = 3;</code>
-         */
-        public java.lang.String getCity() {
-          java.lang.Object ref = city_;
-          if (!(ref instanceof java.lang.String)) {
-            java.lang.String s = ((com.google.protobuf.ByteString) ref)
-                .toStringUtf8();
-            city_ = s;
-            return s;
-          } else {
-            return (java.lang.String) ref;
-          }
-        }
-        /**
-         * <code>required string city = 3;</code>
-         */
-        public com.google.protobuf.ByteString
-            getCityBytes() {
-          java.lang.Object ref = city_;
-          if (ref instanceof String) {
-            com.google.protobuf.ByteString b = 
-                com.google.protobuf.ByteString.copyFromUtf8(
-                    (java.lang.String) ref);
-            city_ = b;
-            return b;
-          } else {
-            return (com.google.protobuf.ByteString) ref;
-          }
-        }
-        /**
-         * <code>required string city = 3;</code>
-         */
-        public Builder setCity(
-            java.lang.String value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-          city_ = value;
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>required string city = 3;</code>
-         */
-        public Builder clearCity() {
-          bitField0_ = (bitField0_ & ~0x00000004);
-          city_ = getDefaultInstance().getCity();
-          onChanged();
-          return this;
-        }
-        /**
-         * <code>required string city = 3;</code>
-         */
-        public Builder setCityBytes(
-            com.google.protobuf.ByteString value) {
-          if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000004;
-          city_ = value;
-          onChanged();
-          return this;
-        }
-
-        // @@protoc_insertion_point(builder_scope:employees.EmployeeProtobuf.Address)
-      }
-
-      static {
-        defaultInstance = new Address(true);
-        defaultInstance.initFields();
-      }
-
-      // @@protoc_insertion_point(class_scope:employees.EmployeeProtobuf.Address)
-    }
-
     private int bitField0_;
-    // required int32 employeeId = 1;
+    // required int64 employeeId = 1;
     public static final int EMPLOYEEID_FIELD_NUMBER = 1;
-    private int employeeId_;
+    private long employeeId_;
     /**
-     * <code>required int32 employeeId = 1;</code>
+     * <code>required int64 employeeId = 1;</code>
      */
     public boolean hasEmployeeId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required int32 employeeId = 1;</code>
+     * <code>required int64 employeeId = 1;</code>
      */
-    public int getEmployeeId() {
+    public long getEmployeeId() {
       return employeeId_;
     }
 
-    // required string employeeName = 2;
-    public static final int EMPLOYEENAME_FIELD_NUMBER = 2;
-    private java.lang.Object employeeName_;
+    // required double salery = 2;
+    public static final int SALERY_FIELD_NUMBER = 2;
+    private double salery_;
     /**
-     * <code>required string employeeName = 2;</code>
+     * <code>required double salery = 2;</code>
      */
-    public boolean hasEmployeeName() {
+    public boolean hasSalery() {
       return ((bitField0_ & 0x00000002) == 0x00000002);
     }
     /**
-     * <code>required string employeeName = 2;</code>
+     * <code>required double salery = 2;</code>
+     */
+    public double getSalery() {
+      return salery_;
+    }
+
+    // required bool consultant = 3;
+    public static final int CONSULTANT_FIELD_NUMBER = 3;
+    private boolean consultant_;
+    /**
+     * <code>required bool consultant = 3;</code>
+     */
+    public boolean hasConsultant() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>required bool consultant = 3;</code>
+     */
+    public boolean getConsultant() {
+      return consultant_;
+    }
+
+    // required string employeeName = 4;
+    public static final int EMPLOYEENAME_FIELD_NUMBER = 4;
+    private java.lang.Object employeeName_;
+    /**
+     * <code>required string employeeName = 4;</code>
+     */
+    public boolean hasEmployeeName() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>required string employeeName = 4;</code>
      */
     public java.lang.String getEmployeeName() {
       java.lang.Object ref = employeeName_;
@@ -968,7 +273,7 @@ public final class EmployeeProto {
       }
     }
     /**
-     * <code>required string employeeName = 2;</code>
+     * <code>required string employeeName = 4;</code>
      */
     public com.google.protobuf.ByteString
         getEmployeeNameBytes() {
@@ -984,90 +289,42 @@ public final class EmployeeProto {
       }
     }
 
-    // optional string department = 3;
-    public static final int DEPARTMENT_FIELD_NUMBER = 3;
-    private java.lang.Object department_;
+    // repeated string departments = 5;
+    public static final int DEPARTMENTS_FIELD_NUMBER = 5;
+    private com.google.protobuf.LazyStringList departments_;
     /**
-     * <code>optional string department = 3;</code>
+     * <code>repeated string departments = 5;</code>
      */
-    public boolean hasDepartment() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+    public java.util.List<java.lang.String>
+        getDepartmentsList() {
+      return departments_;
     }
     /**
-     * <code>optional string department = 3;</code>
+     * <code>repeated string departments = 5;</code>
      */
-    public java.lang.String getDepartment() {
-      java.lang.Object ref = department_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          department_ = s;
-        }
-        return s;
-      }
+    public int getDepartmentsCount() {
+      return departments_.size();
     }
     /**
-     * <code>optional string department = 3;</code>
+     * <code>repeated string departments = 5;</code>
+     */
+    public java.lang.String getDepartments(int index) {
+      return departments_.get(index);
+    }
+    /**
+     * <code>repeated string departments = 5;</code>
      */
     public com.google.protobuf.ByteString
-        getDepartmentBytes() {
-      java.lang.Object ref = department_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        department_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    // repeated .employees.EmployeeProtobuf.Address address = 4;
-    public static final int ADDRESS_FIELD_NUMBER = 4;
-    private java.util.List<tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address> address_;
-    /**
-     * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-     */
-    public java.util.List<tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address> getAddressList() {
-      return address_;
-    }
-    /**
-     * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-     */
-    public java.util.List<? extends tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.AddressOrBuilder> 
-        getAddressOrBuilderList() {
-      return address_;
-    }
-    /**
-     * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-     */
-    public int getAddressCount() {
-      return address_.size();
-    }
-    /**
-     * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-     */
-    public tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address getAddress(int index) {
-      return address_.get(index);
-    }
-    /**
-     * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-     */
-    public tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.AddressOrBuilder getAddressOrBuilder(
-        int index) {
-      return address_.get(index);
+        getDepartmentsBytes(int index) {
+      return departments_.getByteString(index);
     }
 
     private void initFields() {
-      employeeId_ = 0;
+      employeeId_ = 0L;
+      salery_ = 0D;
+      consultant_ = false;
       employeeName_ = "";
-      department_ = "";
-      address_ = java.util.Collections.emptyList();
+      departments_ = com.google.protobuf.LazyStringArrayList.EMPTY;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -1078,15 +335,17 @@ public final class EmployeeProto {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!hasEmployeeName()) {
+      if (!hasSalery()) {
         memoizedIsInitialized = 0;
         return false;
       }
-      for (int i = 0; i < getAddressCount(); i++) {
-        if (!getAddress(i).isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
+      if (!hasConsultant()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasEmployeeName()) {
+        memoizedIsInitialized = 0;
+        return false;
       }
       memoizedIsInitialized = 1;
       return true;
@@ -1096,16 +355,19 @@ public final class EmployeeProto {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeInt32(1, employeeId_);
+        output.writeInt64(1, employeeId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
-        output.writeBytes(2, getEmployeeNameBytes());
+        output.writeDouble(2, salery_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
-        output.writeBytes(3, getDepartmentBytes());
+        output.writeBool(3, consultant_);
       }
-      for (int i = 0; i < address_.size(); i++) {
-        output.writeMessage(4, address_.get(i));
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeBytes(4, getEmployeeNameBytes());
+      }
+      for (int i = 0; i < departments_.size(); i++) {
+        output.writeBytes(5, departments_.getByteString(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -1118,19 +380,28 @@ public final class EmployeeProto {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, employeeId_);
+          .computeInt64Size(1, employeeId_);
       }
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(2, getEmployeeNameBytes());
+          .computeDoubleSize(2, salery_);
       }
       if (((bitField0_ & 0x00000004) == 0x00000004)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(3, getDepartmentBytes());
+          .computeBoolSize(3, consultant_);
       }
-      for (int i = 0; i < address_.size(); i++) {
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(4, address_.get(i));
+          .computeBytesSize(4, getEmployeeNameBytes());
+      }
+      {
+        int dataSize = 0;
+        for (int i = 0; i < departments_.size(); i++) {
+          dataSize += com.google.protobuf.CodedOutputStream
+            .computeBytesSizeNoTag(departments_.getByteString(i));
+        }
+        size += dataSize;
+        size += 1 * getDepartmentsList().size();
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -1144,53 +415,53 @@ public final class EmployeeProto {
       return super.writeReplace();
     }
 
-    public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf parseFrom(
+    public static tcw.domain.protobuf.EmployeeProto.Employee parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf parseFrom(
+    public static tcw.domain.protobuf.EmployeeProto.Employee parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf parseFrom(byte[] data)
+    public static tcw.domain.protobuf.EmployeeProto.Employee parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf parseFrom(
+    public static tcw.domain.protobuf.EmployeeProto.Employee parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf parseFrom(java.io.InputStream input)
+    public static tcw.domain.protobuf.EmployeeProto.Employee parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf parseFrom(
+    public static tcw.domain.protobuf.EmployeeProto.Employee parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf parseDelimitedFrom(java.io.InputStream input)
+    public static tcw.domain.protobuf.EmployeeProto.Employee parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf parseDelimitedFrom(
+    public static tcw.domain.protobuf.EmployeeProto.Employee parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf parseFrom(
+    public static tcw.domain.protobuf.EmployeeProto.Employee parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf parseFrom(
+    public static tcw.domain.protobuf.EmployeeProto.Employee parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -1199,7 +470,7 @@ public final class EmployeeProto {
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf prototype) {
+    public static Builder newBuilder(tcw.domain.protobuf.EmployeeProto.Employee prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -1211,24 +482,24 @@ public final class EmployeeProto {
       return builder;
     }
     /**
-     * Protobuf type {@code employees.EmployeeProtobuf}
+     * Protobuf type {@code employees.Employee}
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements tcw.domain.protobuf.EmployeeProto.EmployeeProtobufOrBuilder {
+       implements tcw.domain.protobuf.EmployeeProto.EmployeeOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return tcw.domain.protobuf.EmployeeProto.internal_static_employees_EmployeeProtobuf_descriptor;
+        return tcw.domain.protobuf.EmployeeProto.internal_static_employees_Employee_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return tcw.domain.protobuf.EmployeeProto.internal_static_employees_EmployeeProtobuf_fieldAccessorTable
+        return tcw.domain.protobuf.EmployeeProto.internal_static_employees_Employee_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.class, tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Builder.class);
+                tcw.domain.protobuf.EmployeeProto.Employee.class, tcw.domain.protobuf.EmployeeProto.Employee.Builder.class);
       }
 
-      // Construct using tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.newBuilder()
+      // Construct using tcw.domain.protobuf.EmployeeProto.Employee.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -1240,7 +511,6 @@ public final class EmployeeProto {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getAddressFieldBuilder();
         }
       }
       private static Builder create() {
@@ -1249,18 +519,16 @@ public final class EmployeeProto {
 
       public Builder clear() {
         super.clear();
-        employeeId_ = 0;
+        employeeId_ = 0L;
         bitField0_ = (bitField0_ & ~0x00000001);
-        employeeName_ = "";
+        salery_ = 0D;
         bitField0_ = (bitField0_ & ~0x00000002);
-        department_ = "";
+        consultant_ = false;
         bitField0_ = (bitField0_ & ~0x00000004);
-        if (addressBuilder_ == null) {
-          address_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
-        } else {
-          addressBuilder_.clear();
-        }
+        employeeName_ = "";
+        bitField0_ = (bitField0_ & ~0x00000008);
+        departments_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000010);
         return this;
       }
 
@@ -1270,23 +538,23 @@ public final class EmployeeProto {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return tcw.domain.protobuf.EmployeeProto.internal_static_employees_EmployeeProtobuf_descriptor;
+        return tcw.domain.protobuf.EmployeeProto.internal_static_employees_Employee_descriptor;
       }
 
-      public tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf getDefaultInstanceForType() {
-        return tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.getDefaultInstance();
+      public tcw.domain.protobuf.EmployeeProto.Employee getDefaultInstanceForType() {
+        return tcw.domain.protobuf.EmployeeProto.Employee.getDefaultInstance();
       }
 
-      public tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf build() {
-        tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf result = buildPartial();
+      public tcw.domain.protobuf.EmployeeProto.Employee build() {
+        tcw.domain.protobuf.EmployeeProto.Employee result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf buildPartial() {
-        tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf result = new tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf(this);
+      public tcw.domain.protobuf.EmployeeProto.Employee buildPartial() {
+        tcw.domain.protobuf.EmployeeProto.Employee result = new tcw.domain.protobuf.EmployeeProto.Employee(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
@@ -1296,74 +564,60 @@ public final class EmployeeProto {
         if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
           to_bitField0_ |= 0x00000002;
         }
-        result.employeeName_ = employeeName_;
+        result.salery_ = salery_;
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
-        result.department_ = department_;
-        if (addressBuilder_ == null) {
-          if (((bitField0_ & 0x00000008) == 0x00000008)) {
-            address_ = java.util.Collections.unmodifiableList(address_);
-            bitField0_ = (bitField0_ & ~0x00000008);
-          }
-          result.address_ = address_;
-        } else {
-          result.address_ = addressBuilder_.build();
+        result.consultant_ = consultant_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
         }
+        result.employeeName_ = employeeName_;
+        if (((bitField0_ & 0x00000010) == 0x00000010)) {
+          departments_ = new com.google.protobuf.UnmodifiableLazyStringList(
+              departments_);
+          bitField0_ = (bitField0_ & ~0x00000010);
+        }
+        result.departments_ = departments_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf) {
-          return mergeFrom((tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf)other);
+        if (other instanceof tcw.domain.protobuf.EmployeeProto.Employee) {
+          return mergeFrom((tcw.domain.protobuf.EmployeeProto.Employee)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf other) {
-        if (other == tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.getDefaultInstance()) return this;
+      public Builder mergeFrom(tcw.domain.protobuf.EmployeeProto.Employee other) {
+        if (other == tcw.domain.protobuf.EmployeeProto.Employee.getDefaultInstance()) return this;
         if (other.hasEmployeeId()) {
           setEmployeeId(other.getEmployeeId());
         }
+        if (other.hasSalery()) {
+          setSalery(other.getSalery());
+        }
+        if (other.hasConsultant()) {
+          setConsultant(other.getConsultant());
+        }
         if (other.hasEmployeeName()) {
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000008;
           employeeName_ = other.employeeName_;
           onChanged();
         }
-        if (other.hasDepartment()) {
-          bitField0_ |= 0x00000004;
-          department_ = other.department_;
+        if (!other.departments_.isEmpty()) {
+          if (departments_.isEmpty()) {
+            departments_ = other.departments_;
+            bitField0_ = (bitField0_ & ~0x00000010);
+          } else {
+            ensureDepartmentsIsMutable();
+            departments_.addAll(other.departments_);
+          }
           onChanged();
-        }
-        if (addressBuilder_ == null) {
-          if (!other.address_.isEmpty()) {
-            if (address_.isEmpty()) {
-              address_ = other.address_;
-              bitField0_ = (bitField0_ & ~0x00000008);
-            } else {
-              ensureAddressIsMutable();
-              address_.addAll(other.address_);
-            }
-            onChanged();
-          }
-        } else {
-          if (!other.address_.isEmpty()) {
-            if (addressBuilder_.isEmpty()) {
-              addressBuilder_.dispose();
-              addressBuilder_ = null;
-              address_ = other.address_;
-              bitField0_ = (bitField0_ & ~0x00000008);
-              addressBuilder_ = 
-                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
-                   getAddressFieldBuilder() : null;
-            } else {
-              addressBuilder_.addAllMessages(other.address_);
-            }
-          }
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -1374,15 +628,17 @@ public final class EmployeeProto {
           
           return false;
         }
-        if (!hasEmployeeName()) {
+        if (!hasSalery()) {
           
           return false;
         }
-        for (int i = 0; i < getAddressCount(); i++) {
-          if (!getAddress(i).isInitialized()) {
-            
-            return false;
-          }
+        if (!hasConsultant()) {
+          
+          return false;
+        }
+        if (!hasEmployeeName()) {
+          
+          return false;
         }
         return true;
       }
@@ -1391,11 +647,11 @@ public final class EmployeeProto {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf parsedMessage = null;
+        tcw.domain.protobuf.EmployeeProto.Employee parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf) e.getUnfinishedMessage();
+          parsedMessage = (tcw.domain.protobuf.EmployeeProto.Employee) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -1406,49 +662,115 @@ public final class EmployeeProto {
       }
       private int bitField0_;
 
-      // required int32 employeeId = 1;
-      private int employeeId_ ;
+      // required int64 employeeId = 1;
+      private long employeeId_ ;
       /**
-       * <code>required int32 employeeId = 1;</code>
+       * <code>required int64 employeeId = 1;</code>
        */
       public boolean hasEmployeeId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required int32 employeeId = 1;</code>
+       * <code>required int64 employeeId = 1;</code>
        */
-      public int getEmployeeId() {
+      public long getEmployeeId() {
         return employeeId_;
       }
       /**
-       * <code>required int32 employeeId = 1;</code>
+       * <code>required int64 employeeId = 1;</code>
        */
-      public Builder setEmployeeId(int value) {
+      public Builder setEmployeeId(long value) {
         bitField0_ |= 0x00000001;
         employeeId_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required int32 employeeId = 1;</code>
+       * <code>required int64 employeeId = 1;</code>
        */
       public Builder clearEmployeeId() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        employeeId_ = 0;
+        employeeId_ = 0L;
         onChanged();
         return this;
       }
 
-      // required string employeeName = 2;
-      private java.lang.Object employeeName_ = "";
+      // required double salery = 2;
+      private double salery_ ;
       /**
-       * <code>required string employeeName = 2;</code>
+       * <code>required double salery = 2;</code>
        */
-      public boolean hasEmployeeName() {
+      public boolean hasSalery() {
         return ((bitField0_ & 0x00000002) == 0x00000002);
       }
       /**
-       * <code>required string employeeName = 2;</code>
+       * <code>required double salery = 2;</code>
+       */
+      public double getSalery() {
+        return salery_;
+      }
+      /**
+       * <code>required double salery = 2;</code>
+       */
+      public Builder setSalery(double value) {
+        bitField0_ |= 0x00000002;
+        salery_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required double salery = 2;</code>
+       */
+      public Builder clearSalery() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        salery_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      // required bool consultant = 3;
+      private boolean consultant_ ;
+      /**
+       * <code>required bool consultant = 3;</code>
+       */
+      public boolean hasConsultant() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>required bool consultant = 3;</code>
+       */
+      public boolean getConsultant() {
+        return consultant_;
+      }
+      /**
+       * <code>required bool consultant = 3;</code>
+       */
+      public Builder setConsultant(boolean value) {
+        bitField0_ |= 0x00000004;
+        consultant_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required bool consultant = 3;</code>
+       */
+      public Builder clearConsultant() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        consultant_ = false;
+        onChanged();
+        return this;
+      }
+
+      // required string employeeName = 4;
+      private java.lang.Object employeeName_ = "";
+      /**
+       * <code>required string employeeName = 4;</code>
+       */
+      public boolean hasEmployeeName() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>required string employeeName = 4;</code>
        */
       public java.lang.String getEmployeeName() {
         java.lang.Object ref = employeeName_;
@@ -1462,7 +784,7 @@ public final class EmployeeProto {
         }
       }
       /**
-       * <code>required string employeeName = 2;</code>
+       * <code>required string employeeName = 4;</code>
        */
       public com.google.protobuf.ByteString
           getEmployeeNameBytes() {
@@ -1478,376 +800,150 @@ public final class EmployeeProto {
         }
       }
       /**
-       * <code>required string employeeName = 2;</code>
+       * <code>required string employeeName = 4;</code>
        */
       public Builder setEmployeeName(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000008;
         employeeName_ = value;
         onChanged();
         return this;
       }
       /**
-       * <code>required string employeeName = 2;</code>
+       * <code>required string employeeName = 4;</code>
        */
       public Builder clearEmployeeName() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000008);
         employeeName_ = getDefaultInstance().getEmployeeName();
         onChanged();
         return this;
       }
       /**
-       * <code>required string employeeName = 2;</code>
+       * <code>required string employeeName = 4;</code>
        */
       public Builder setEmployeeNameBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000002;
+  bitField0_ |= 0x00000008;
         employeeName_ = value;
         onChanged();
         return this;
       }
 
-      // optional string department = 3;
-      private java.lang.Object department_ = "";
-      /**
-       * <code>optional string department = 3;</code>
-       */
-      public boolean hasDepartment() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+      // repeated string departments = 5;
+      private com.google.protobuf.LazyStringList departments_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+      private void ensureDepartmentsIsMutable() {
+        if (!((bitField0_ & 0x00000010) == 0x00000010)) {
+          departments_ = new com.google.protobuf.LazyStringArrayList(departments_);
+          bitField0_ |= 0x00000010;
+         }
       }
       /**
-       * <code>optional string department = 3;</code>
+       * <code>repeated string departments = 5;</code>
        */
-      public java.lang.String getDepartment() {
-        java.lang.Object ref = department_;
-        if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          department_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
+      public java.util.List<java.lang.String>
+          getDepartmentsList() {
+        return java.util.Collections.unmodifiableList(departments_);
       }
       /**
-       * <code>optional string department = 3;</code>
+       * <code>repeated string departments = 5;</code>
+       */
+      public int getDepartmentsCount() {
+        return departments_.size();
+      }
+      /**
+       * <code>repeated string departments = 5;</code>
+       */
+      public java.lang.String getDepartments(int index) {
+        return departments_.get(index);
+      }
+      /**
+       * <code>repeated string departments = 5;</code>
        */
       public com.google.protobuf.ByteString
-          getDepartmentBytes() {
-        java.lang.Object ref = department_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          department_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
+          getDepartmentsBytes(int index) {
+        return departments_.getByteString(index);
       }
       /**
-       * <code>optional string department = 3;</code>
+       * <code>repeated string departments = 5;</code>
        */
-      public Builder setDepartment(
+      public Builder setDepartments(
+          int index, java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  ensureDepartmentsIsMutable();
+        departments_.set(index, value);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string departments = 5;</code>
+       */
+      public Builder addDepartments(
           java.lang.String value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
-        department_ = value;
+  ensureDepartmentsIsMutable();
+        departments_.add(value);
         onChanged();
         return this;
       }
       /**
-       * <code>optional string department = 3;</code>
+       * <code>repeated string departments = 5;</code>
        */
-      public Builder clearDepartment() {
-        bitField0_ = (bitField0_ & ~0x00000004);
-        department_ = getDefaultInstance().getDepartment();
+      public Builder addAllDepartments(
+          java.lang.Iterable<java.lang.String> values) {
+        ensureDepartmentsIsMutable();
+        super.addAll(values, departments_);
         onChanged();
         return this;
       }
       /**
-       * <code>optional string department = 3;</code>
+       * <code>repeated string departments = 5;</code>
        */
-      public Builder setDepartmentBytes(
+      public Builder clearDepartments() {
+        departments_ = com.google.protobuf.LazyStringArrayList.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000010);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>repeated string departments = 5;</code>
+       */
+      public Builder addDepartmentsBytes(
           com.google.protobuf.ByteString value) {
         if (value == null) {
     throw new NullPointerException();
   }
-  bitField0_ |= 0x00000004;
-        department_ = value;
+  ensureDepartmentsIsMutable();
+        departments_.add(value);
         onChanged();
         return this;
       }
 
-      // repeated .employees.EmployeeProtobuf.Address address = 4;
-      private java.util.List<tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address> address_ =
-        java.util.Collections.emptyList();
-      private void ensureAddressIsMutable() {
-        if (!((bitField0_ & 0x00000008) == 0x00000008)) {
-          address_ = new java.util.ArrayList<tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address>(address_);
-          bitField0_ |= 0x00000008;
-         }
-      }
-
-      private com.google.protobuf.RepeatedFieldBuilder<
-          tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address, tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.Builder, tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.AddressOrBuilder> addressBuilder_;
-
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public java.util.List<tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address> getAddressList() {
-        if (addressBuilder_ == null) {
-          return java.util.Collections.unmodifiableList(address_);
-        } else {
-          return addressBuilder_.getMessageList();
-        }
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public int getAddressCount() {
-        if (addressBuilder_ == null) {
-          return address_.size();
-        } else {
-          return addressBuilder_.getCount();
-        }
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address getAddress(int index) {
-        if (addressBuilder_ == null) {
-          return address_.get(index);
-        } else {
-          return addressBuilder_.getMessage(index);
-        }
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public Builder setAddress(
-          int index, tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address value) {
-        if (addressBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAddressIsMutable();
-          address_.set(index, value);
-          onChanged();
-        } else {
-          addressBuilder_.setMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public Builder setAddress(
-          int index, tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.Builder builderForValue) {
-        if (addressBuilder_ == null) {
-          ensureAddressIsMutable();
-          address_.set(index, builderForValue.build());
-          onChanged();
-        } else {
-          addressBuilder_.setMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public Builder addAddress(tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address value) {
-        if (addressBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAddressIsMutable();
-          address_.add(value);
-          onChanged();
-        } else {
-          addressBuilder_.addMessage(value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public Builder addAddress(
-          int index, tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address value) {
-        if (addressBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          ensureAddressIsMutable();
-          address_.add(index, value);
-          onChanged();
-        } else {
-          addressBuilder_.addMessage(index, value);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public Builder addAddress(
-          tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.Builder builderForValue) {
-        if (addressBuilder_ == null) {
-          ensureAddressIsMutable();
-          address_.add(builderForValue.build());
-          onChanged();
-        } else {
-          addressBuilder_.addMessage(builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public Builder addAddress(
-          int index, tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.Builder builderForValue) {
-        if (addressBuilder_ == null) {
-          ensureAddressIsMutable();
-          address_.add(index, builderForValue.build());
-          onChanged();
-        } else {
-          addressBuilder_.addMessage(index, builderForValue.build());
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public Builder addAllAddress(
-          java.lang.Iterable<? extends tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address> values) {
-        if (addressBuilder_ == null) {
-          ensureAddressIsMutable();
-          super.addAll(values, address_);
-          onChanged();
-        } else {
-          addressBuilder_.addAllMessages(values);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public Builder clearAddress() {
-        if (addressBuilder_ == null) {
-          address_ = java.util.Collections.emptyList();
-          bitField0_ = (bitField0_ & ~0x00000008);
-          onChanged();
-        } else {
-          addressBuilder_.clear();
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public Builder removeAddress(int index) {
-        if (addressBuilder_ == null) {
-          ensureAddressIsMutable();
-          address_.remove(index);
-          onChanged();
-        } else {
-          addressBuilder_.remove(index);
-        }
-        return this;
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.Builder getAddressBuilder(
-          int index) {
-        return getAddressFieldBuilder().getBuilder(index);
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.AddressOrBuilder getAddressOrBuilder(
-          int index) {
-        if (addressBuilder_ == null) {
-          return address_.get(index);  } else {
-          return addressBuilder_.getMessageOrBuilder(index);
-        }
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public java.util.List<? extends tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.AddressOrBuilder> 
-           getAddressOrBuilderList() {
-        if (addressBuilder_ != null) {
-          return addressBuilder_.getMessageOrBuilderList();
-        } else {
-          return java.util.Collections.unmodifiableList(address_);
-        }
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.Builder addAddressBuilder() {
-        return getAddressFieldBuilder().addBuilder(
-            tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.Builder addAddressBuilder(
-          int index) {
-        return getAddressFieldBuilder().addBuilder(
-            index, tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.getDefaultInstance());
-      }
-      /**
-       * <code>repeated .employees.EmployeeProtobuf.Address address = 4;</code>
-       */
-      public java.util.List<tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.Builder> 
-           getAddressBuilderList() {
-        return getAddressFieldBuilder().getBuilderList();
-      }
-      private com.google.protobuf.RepeatedFieldBuilder<
-          tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address, tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.Builder, tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.AddressOrBuilder> 
-          getAddressFieldBuilder() {
-        if (addressBuilder_ == null) {
-          addressBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
-              tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address, tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.Address.Builder, tcw.domain.protobuf.EmployeeProto.EmployeeProtobuf.AddressOrBuilder>(
-                  address_,
-                  ((bitField0_ & 0x00000008) == 0x00000008),
-                  getParentForChildren(),
-                  isClean());
-          address_ = null;
-        }
-        return addressBuilder_;
-      }
-
-      // @@protoc_insertion_point(builder_scope:employees.EmployeeProtobuf)
+      // @@protoc_insertion_point(builder_scope:employees.Employee)
     }
 
     static {
-      defaultInstance = new EmployeeProtobuf(true);
+      defaultInstance = new Employee(true);
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:employees.EmployeeProtobuf)
+    // @@protoc_insertion_point(class_scope:employees.Employee)
   }
 
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_employees_EmployeeProtobuf_descriptor;
+    internal_static_employees_Employee_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_employees_EmployeeProtobuf_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_employees_EmployeeProtobuf_Address_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_employees_EmployeeProtobuf_Address_fieldAccessorTable;
+      internal_static_employees_Employee_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -1857,31 +953,23 @@ public final class EmployeeProto {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016employee.proto\022\temployees\"\277\001\n\020Employee" +
-      "Protobuf\022\022\n\nemployeeId\030\001 \002(\005\022\024\n\014employee" +
-      "Name\030\002 \002(\t\022\022\n\ndepartment\030\003 \001(\t\0224\n\007addres" +
-      "s\030\004 \003(\0132#.employees.EmployeeProtobuf.Add" +
-      "ress\0327\n\007Address\022\016\n\006homeNo\030\001 \002(\005\022\016\n\006stree" +
-      "t\030\002 \002(\t\022\014\n\004city\030\003 \002(\tB$\n\023tcw.domain.prot" +
-      "obufB\rEmployeeProto"
+      "\n\016employee.proto\022\temployees\"m\n\010Employee\022" +
+      "\022\n\nemployeeId\030\001 \002(\003\022\016\n\006salery\030\002 \002(\001\022\022\n\nc" +
+      "onsultant\030\003 \002(\010\022\024\n\014employeeName\030\004 \002(\t\022\023\n" +
+      "\013departments\030\005 \003(\tB$\n\023tcw.domain.protobu" +
+      "fB\rEmployeeProto"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
         public com.google.protobuf.ExtensionRegistry assignDescriptors(
             com.google.protobuf.Descriptors.FileDescriptor root) {
           descriptor = root;
-          internal_static_employees_EmployeeProtobuf_descriptor =
+          internal_static_employees_Employee_descriptor =
             getDescriptor().getMessageTypes().get(0);
-          internal_static_employees_EmployeeProtobuf_fieldAccessorTable = new
+          internal_static_employees_Employee_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_employees_EmployeeProtobuf_descriptor,
-              new java.lang.String[] { "EmployeeId", "EmployeeName", "Department", "Address", });
-          internal_static_employees_EmployeeProtobuf_Address_descriptor =
-            internal_static_employees_EmployeeProtobuf_descriptor.getNestedTypes().get(0);
-          internal_static_employees_EmployeeProtobuf_Address_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_employees_EmployeeProtobuf_Address_descriptor,
-              new java.lang.String[] { "HomeNo", "Street", "City", });
+              internal_static_employees_Employee_descriptor,
+              new java.lang.String[] { "EmployeeId", "Salery", "Consultant", "EmployeeName", "Departments", });
           return null;
         }
       };

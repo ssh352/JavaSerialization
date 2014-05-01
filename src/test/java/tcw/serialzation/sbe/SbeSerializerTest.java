@@ -9,7 +9,7 @@ public class SbeSerializerTest {
     @Ignore
     public void validation() throws Exception {
         SbeSerializer sbeSerializer = new SbeSerializer();
-        sbeSerializer.serializeDeserialize();
+//        sbeSerializer.serializeDeserialize();
     }
 
     @Test

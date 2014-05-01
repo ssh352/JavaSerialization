@@ -2,7 +2,6 @@ package tcw.serialzation.plain;
 
 
 import tcw.domain.Employee;
-import tcw.domain.v1.EmployeeV1;
 
 import java.io.*;
 
@@ -27,6 +26,5 @@ public class PlainSerialization {
         bis.close();
         return (Employee) o;
     }
-
 
 }

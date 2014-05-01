@@ -4,7 +4,6 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import tcw.domain.Employee;
-import tcw.domain.v1.EmployeeV1;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

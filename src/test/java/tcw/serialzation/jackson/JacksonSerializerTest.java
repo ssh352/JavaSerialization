@@ -2,11 +2,17 @@ package tcw.serialzation.jackson;
 
 
 import com.google.common.base.Stopwatch;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 import tcw.domain.Employee;
-import tcw.domain.util.Populated;
-import tcw.domain.v1.EmployeeV1;
 import tcw.serialzation.HelperUtils;
+import tcw.serialzation.Populated;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.util.List;
+
+import static tcw.serialzation.Populated.POPULATION_SIZE;
 
 public class JacksonSerializerTest {
 
@@ -35,12 +41,12 @@ public class JacksonSerializerTest {
     @Test
     public void benchmark() throws Exception {
         JacksonSerializer jacksonSerializer = new JacksonSerializer();
-        Employee employee = Populated.employee();
-        Employee deserializedEmployeeV1 = null;
+        List<Employee> employees = Populated.employees(POPULATION_SIZE);
         Stopwatch stopwatch = Stopwatch.createStarted();
-        for (int i = 0; i < 1000000; i++) {
+        Employee deserializedEmployee = null;
+        for (Employee employee : employees) {
             byte[] serializedEmployee = jacksonSerializer.serialize(employee);
-            deserializedEmployeeV1 = jacksonSerializer.deserialize(serializedEmployee);
+            deserializedEmployee = jacksonSerializer.deserialize(serializedEmployee);
         }
         stopwatch.stop();
         System.out.println(stopwatch.toString());

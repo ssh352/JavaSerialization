@@ -3,27 +3,29 @@ package tcw.serialzation.avro;
 import com.google.common.base.Stopwatch;
 import com.google.common.collect.Lists;
 import org.junit.Test;
-import tcw.domain.avro.java.EmployeeAvroV1;
-import tcw.domain.util.Populated;
+import tcw.domain.avro.java.Employee;
 import tcw.serialzation.HelperUtils;
+import tcw.serialzation.Populated;
 
 import java.util.List;
+
+import static tcw.serialzation.Populated.POPULATION_SIZE;
 
 public class AvroSerializerTest {
 
     @Test
     public void validation() throws Exception {
         AvroSerializer avroSerializer = new AvroSerializer();
-        EmployeeAvroV1 employeeV1 = Populated.avroEmployee();
-        byte[] serializedEmployee = avroSerializer.serialize(Lists.newArrayList(employeeV1));
-        List<EmployeeAvroV1> employeeAvroV1s = avroSerializer.deserialize(serializedEmployee);
-        System.out.println(employeeAvroV1s.get(0));
+        Employee employee = Populated.avroEmployee();
+        byte[] serializedEmployee = avroSerializer.serialize(Lists.newArrayList(employee));
+        Employee deserializedEmployee= avroSerializer.deserialize(serializedEmployee);
+        System.out.println(deserializedEmployee);
     }
 
     @Test
     public void serializationSize() throws Exception {
         AvroSerializer avroSerializer = new AvroSerializer();
-        EmployeeAvroV1 employeeV1 = Populated.avroEmployee();
+        Employee employeeV1 = Populated.avroEmployee();
         byte[] serializedEmployee = avroSerializer.serialize(Lists.newArrayList(employeeV1));
         String hex = HelperUtils.prettyHex16(serializedEmployee);
         System.out.println("SIZE: " + serializedEmployee.length + " bytes");
@@ -34,14 +36,9 @@ public class AvroSerializerTest {
     @Test
     public void benchmark() throws Exception {
         AvroSerializer avroSerializer = new AvroSerializer();
-        EmployeeAvroV1 deserializedEmployeeV1 = null;
-        List<EmployeeAvroV1> avorEmployees = Lists.newArrayList();
-        for (int i = 0; i < 1000000; i++) {
-            avorEmployees.add(Populated.avroEmployee());
-        }
         Stopwatch stopwatch = Stopwatch.createStarted();
-        byte[] serializedEmployee = avroSerializer.serialize(avorEmployees);
-        List<EmployeeAvroV1> deserialized = avroSerializer.deserialize(serializedEmployee);
+        byte[] serializedEmployee = avroSerializer.serialize(Populated.avroEmployees(POPULATION_SIZE));
+        avroSerializer.deserialize(serializedEmployee); // dont need return values
         stopwatch.stop();
         System.out.println(stopwatch.toString());
     }

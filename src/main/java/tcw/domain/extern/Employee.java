@@ -1,11 +1,10 @@
 package tcw.domain.extern;
 
-import tcw.domain.extern.v1.AddressExtV1;
-
 import java.io.Externalizable;
 import java.io.IOException;
 import java.io.ObjectInput;
 import java.io.ObjectOutput;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Employee implements Externalizable {
@@ -71,7 +70,7 @@ public class Employee implements Externalizable {
         salery = in.readDouble();
         consultant = in.readBoolean();
         employeeName = (String) in.readObject();
-        departments = (List<String>) in.readObject();
+        departments = (ArrayList) in.readObject();
     }
 
     @Override

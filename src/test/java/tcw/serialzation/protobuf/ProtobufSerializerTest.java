@@ -4,39 +4,42 @@ package tcw.serialzation.protobuf;
 import com.google.common.base.Stopwatch;
 import org.junit.Test;
 import tcw.domain.protobuf.EmployeeProto;
-import tcw.domain.util.Populated;
-import tcw.domain.v1.EmployeeV1;
 import tcw.serialzation.HelperUtils;
+import tcw.serialzation.Populated;
 import tcw.serialzation.plain.PlainSerialization;
+
+import java.util.List;
+
+import static tcw.serialzation.Populated.*;
 
 public class ProtobufSerializerTest {
 
-
     @Test
     public void validation() throws Exception {
-        EmployeeProto.EmployeeProtobuf employeeProtobuf = Populated.protobufEmployee();
+        EmployeeProto.Employee employeeProtobuf = protobufEmployee();
         byte[] bytes = employeeProtobuf.toByteArray();
-        EmployeeProto.EmployeeProtobuf employeeProtobufObject = EmployeeProto.EmployeeProtobuf.newBuilder().mergeFrom(bytes).build();
+        EmployeeProto.Employee employeeProtobufObject = EmployeeProto.Employee.newBuilder().mergeFrom(bytes).build();
         System.out.println(employeeProtobufObject);
     }
 
     @Test
     public void serializationSize() throws Exception {
-        EmployeeProto.EmployeeProtobuf employeeProtobuf = Populated.protobufEmployee();
-        byte[] serializedEmployee = employeeProtobuf.toByteArray();
+        EmployeeProto.Employee employee = protobufEmployee();
+        byte[] serializedEmployee = employee.toByteArray();
         String hex = HelperUtils.prettyHex16(serializedEmployee);
         System.out.println("SIZE: " + serializedEmployee.length + " bytes");
         System.out.println(hex);
+        //42 bytes
     }
 
     @Test
     public void benchmark() throws Exception {
-        EmployeeProto.EmployeeProtobuf employeeProtobuf = Populated.protobufEmployee();
-        EmployeeProto.EmployeeProtobuf employee = null;
+        List<EmployeeProto.Employee> employees = protobufEmployees(POPULATION_SIZE);
+        EmployeeProto.Employee employeeDeserilaized = null;
         Stopwatch stopwatch = Stopwatch.createStarted();
-        for (int i = 0; i < 1000000; i++) {
-            byte[] serializedEmployee = employeeProtobuf.toByteArray();
-            employee = EmployeeProto.EmployeeProtobuf.newBuilder().mergeFrom(serializedEmployee).build();
+        for (EmployeeProto.Employee employee : employees) {
+            byte[] serializedEmployee = employee.toByteArray();
+            employeeDeserilaized = EmployeeProto.Employee.newBuilder().mergeFrom(serializedEmployee).build();
         }
         stopwatch.stop();
         System.out.println(stopwatch.toString());

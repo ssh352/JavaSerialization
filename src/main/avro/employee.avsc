@@ -1,0 +1,33 @@
+{"namespace": "tcw.domain.avro.java",
+    "type": "record",
+    "name": "Employee",
+    "fields": [
+        {
+            "name": "employeeId",
+            "type": ["long", "null"]
+        },
+        {
+            "name": "salery",
+            "type": ["double", "null"]
+        },
+        {
+            "name": "consultant",
+            "type": ["boolean", "null"]
+        },
+        {
+            "name": "employeeName",
+            "type": ["string", "null"]
+        },
+        {
+            "name": "departments",
+            "type": "array",
+             "type":["null",
+                            {
+                                "type":"array",
+                                "items":"string"
+                            }
+                        ],
+                        "default":null
+        }
+    ]
+}

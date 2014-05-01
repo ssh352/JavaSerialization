@@ -1,7 +1,6 @@
 package tcw.serialzation.manual;
 
 import tcw.domain.extern.Employee;
-import tcw.domain.extern.v1.EmployeeExtV1;
 
 import java.io.*;
 

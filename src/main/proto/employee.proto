@@ -1,0 +1,13 @@
+package employees;
+
+option java_package = "tcw.domain.protobuf";
+option java_outer_classname = "EmployeeProto";
+
+message Employee {
+  required int64 employeeId = 1;
+  required double salery = 2;
+  required bool consultant = 3;
+  required string employeeName = 4;
+  repeated string departments = 5;
+
+}
