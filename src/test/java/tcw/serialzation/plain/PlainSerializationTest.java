@@ -6,22 +6,23 @@ import org.junit.Test;
 import tcw.domain.Employee;
 
 import tcw.serialzation.HelperUtils;
-import tcw.serialzation.Populated;
+import tcw.serialzation.Populator;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import static tcw.serialzation.Populated.POPULATION_SIZE;
+import static tcw.serialzation.Populator.POPULATION_SIZE;
 
 public class PlainSerializationTest {
 
     @Test
     public void validation() throws Exception {
         PlainSerialization plainSerialization = new PlainSerialization();
-        Employee employee = Populated.employee();
+        Employee employee = Populator.employee();
         byte[] serializedEmployee = plainSerialization.serialize(employee);
         Employee deserializedEmployee = plainSerialization.deserialize(serializedEmployee);
         System.out.println(deserializedEmployee);
@@ -30,7 +31,7 @@ public class PlainSerializationTest {
     @Test
     public void serializationSize() throws Exception {
         PlainSerialization plainSerialization = new PlainSerialization();
-        Employee employee = Populated.employee();
+        Employee employee = Populator.employee();
         byte[] serializedEmployee = plainSerialization.serialize(employee);
         String hex = HelperUtils.prettyHex16(serializedEmployee);
         System.out.println("SIZE: " + serializedEmployee.length + " bytes");
@@ -38,9 +39,8 @@ public class PlainSerializationTest {
         //60 bytes
     }
 
-    @Test
-    public void benchmark() throws Exception {
-        List<Employee> employees = Populated.employees(POPULATION_SIZE);
+    public long benchmark() throws Exception {
+        List<Employee> employees = Populator.employees(POPULATION_SIZE);
         Stopwatch stopwatch = Stopwatch.createStarted();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         ObjectOutputStream objectOutputStream = new ObjectOutputStream(bos);
@@ -61,7 +61,8 @@ public class PlainSerializationTest {
         objectInputStream.close();
         bis.close();
        stopwatch.stop();
-        System.out.println(stopwatch.toString());
-        System.out.println(employeeDeserialized.toString());
+        byte aByte = bytes[0];
+        System.out.println("Serializable:" + stopwatch.toString());
+        return stopwatch.elapsed(TimeUnit.NANOSECONDS);
     }
 }

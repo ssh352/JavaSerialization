@@ -8,19 +8,20 @@ import org.msgpack.packer.Packer;
 import org.msgpack.unpacker.Unpacker;
 import tcw.domain.messagepack.Employee;
 import tcw.serialzation.HelperUtils;
-import tcw.serialzation.Populated;
+import tcw.serialzation.Populator;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import static tcw.serialzation.Populated.POPULATION_SIZE;
+import static tcw.serialzation.Populator.POPULATION_SIZE;
 
 public class MsgPackSerializationTest {
 
     @Test
     public void validation() throws Exception {
-        Employee employee = Populated.employeeMessagepack();
+        Employee employee = Populator.employeeMessagepack();
         MessagePack messagePack = new MessagePack();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         Packer packer = messagePack.createPacker(bos);
@@ -34,7 +35,7 @@ public class MsgPackSerializationTest {
 
     @Test
     public void serializationSize() throws Exception {
-        Employee employee = Populated.employeeMessagepack();
+        Employee employee = Populator.employeeMessagepack();
         MessagePack messagePack = new MessagePack();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         Packer packer = messagePack.createPacker(bos);
@@ -46,9 +47,8 @@ public class MsgPackSerializationTest {
         //40 bytes
     }
 
-    @Test
-    public void benchmark() throws Exception {
-        List<Employee> employees = Populated.employeesMessagepack(POPULATION_SIZE);
+    public long benchmark() throws Exception {
+        List<Employee> employees = Populator.employeesMessagepack(POPULATION_SIZE);
         MessagePack messagePack = new MessagePack();
         Stopwatch stopwatch = Stopwatch.createStarted();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -56,15 +56,17 @@ public class MsgPackSerializationTest {
         for (Employee employee : employees) {
             employee.serialize(packer);
         }
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(bos.toByteArray());
+        byte[] buf = bos.toByteArray();
+        ByteArrayInputStream inputStream = new ByteArrayInputStream(buf);
         Unpacker unpacker = messagePack.createUnpacker(inputStream);
         Employee deserializedEmployee = new Employee();
         for (int i = 0; i < employees.size(); i++) {
             deserializedEmployee.deserialize(unpacker);
         }
         stopwatch.stop();
-        System.out.println(stopwatch.toString());
-        System.out.println(deserializedEmployee);
+        byte b = buf[0];
+        System.out.println("Messagepack:" + stopwatch.toString());
+        return stopwatch.elapsed(TimeUnit.NANOSECONDS);
     }
 
 

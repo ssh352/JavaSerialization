@@ -22,13 +22,14 @@ public class AvroSerializer {
     DataFileWriter<Employee> dataFileWriter = new DataFileWriter<Employee>(userDatumWriter);
     DatumReader<Employee> userDatumReader = new SpecificDatumReader<Employee>(Employee.class);
 
-    public byte[] serialize(List<Employee> employeeV1) throws IOException {
+    public byte[] serialize(List<Employee> employee) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        dataFileWriter.create(employeeV1.get(0).getSchema(), bos);
-        for (Employee Employee : employeeV1) {
+        dataFileWriter.create(employee.get(0).getSchema(), bos);
+        for (Employee Employee : employee) {
             dataFileWriter.append(Employee);
         }
         dataFileWriter.close();
+        bos.close();
         return bos.toByteArray();
     }
 

@@ -7,20 +7,21 @@ import com.google.common.base.Stopwatch;
 import org.junit.Test;
 import tcw.domain.Employee;
 import tcw.serialzation.HelperUtils;
-import tcw.serialzation.Populated;
+import tcw.serialzation.Populator;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import static tcw.serialzation.Populated.POPULATION_SIZE;
+import static tcw.serialzation.Populator.POPULATION_SIZE;
 
 public class KryoSerializerTest {
 
     @Test
     public void validation() throws Exception {
         KryoSerializer kryoSerializer = new KryoSerializer();
-        Employee employee = Populated.employee();
+        Employee employee = Populator.employee();
         byte[] serializedEmployee = kryoSerializer.serialize(employee);
         Employee deserializedEmployee = kryoSerializer.deserialize(serializedEmployee);
         System.out.println(deserializedEmployee);
@@ -29,7 +30,7 @@ public class KryoSerializerTest {
     @Test
     public void serializationSize() throws Exception {
         KryoSerializer kryoSerializer = new KryoSerializer();
-        Employee employee = Populated.employee();
+        Employee employee = Populator.employee();
         byte[] serializedEmployee = kryoSerializer.serialize(employee);
         String hex = HelperUtils.prettyHex16(serializedEmployee);
         System.out.println("SIZE: " + serializedEmployee.length + " bytes");
@@ -37,11 +38,10 @@ public class KryoSerializerTest {
         //59 bytes
     }
 
-    @Test
-    public void benchmark() throws Exception {
+    public long benchmark() throws Exception {
 
         Kryo kryo = new Kryo();
-        List<Employee> employees = Populated.employees(POPULATION_SIZE);
+        List<Employee> employees = Populator.employees(POPULATION_SIZE);
         Stopwatch stopwatch = Stopwatch.createStarted();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         Output output = new Output(bos);
@@ -61,8 +61,9 @@ public class KryoSerializerTest {
         input.close();
         bis.close();
         stopwatch.stop();
-        System.out.println(stopwatch.toString());
-        System.out.println(employeeDeserialized.toString());
+        byte aByte = bytes[0];
+        System.out.println("Kryo:" + stopwatch.toString());
+        return stopwatch.elapsed(TimeUnit.NANOSECONDS);
     }
 
 }

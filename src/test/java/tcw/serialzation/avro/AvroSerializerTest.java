@@ -5,18 +5,18 @@ import com.google.common.collect.Lists;
 import org.junit.Test;
 import tcw.domain.avro.java.Employee;
 import tcw.serialzation.HelperUtils;
-import tcw.serialzation.Populated;
+import tcw.serialzation.Populator;
 
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import static tcw.serialzation.Populated.POPULATION_SIZE;
+import static tcw.serialzation.Populator.POPULATION_SIZE;
 
 public class AvroSerializerTest {
 
     @Test
     public void validation() throws Exception {
         AvroSerializer avroSerializer = new AvroSerializer();
-        Employee employee = Populated.avroEmployee();
+        Employee employee = Populator.avroEmployee();
         byte[] serializedEmployee = avroSerializer.serialize(Lists.newArrayList(employee));
         Employee deserializedEmployee= avroSerializer.deserialize(serializedEmployee);
         System.out.println(deserializedEmployee);
@@ -25,22 +25,23 @@ public class AvroSerializerTest {
     @Test
     public void serializationSize() throws Exception {
         AvroSerializer avroSerializer = new AvroSerializer();
-        Employee employeeV1 = Populated.avroEmployee();
-        byte[] serializedEmployee = avroSerializer.serialize(Lists.newArrayList(employeeV1));
+        Employee employee = Populator.avroEmployee();
+        byte[] serializedEmployee = avroSerializer.serialize(Lists.newArrayList(employee));
         String hex = HelperUtils.prettyHex16(serializedEmployee);
         System.out.println("SIZE: " + serializedEmployee.length + " bytes");
         System.out.println(hex);
     }
 
 
-    @Test
-    public void benchmark() throws Exception {
+    public long benchmark() throws Exception {
         AvroSerializer avroSerializer = new AvroSerializer();
         Stopwatch stopwatch = Stopwatch.createStarted();
-        byte[] serializedEmployee = avroSerializer.serialize(Populated.avroEmployees(POPULATION_SIZE));
+        byte[] serializedEmployee = avroSerializer.serialize(Populator.avroEmployees(POPULATION_SIZE));
         avroSerializer.deserialize(serializedEmployee); // dont need return values
         stopwatch.stop();
-        System.out.println(stopwatch.toString());
+        byte b = serializedEmployee[0];
+        System.out.println("Avro :" + stopwatch.toString());
+        return stopwatch.elapsed(TimeUnit.NANOSECONDS);
     }
 
 }

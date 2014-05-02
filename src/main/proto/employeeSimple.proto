@@ -1,13 +1,15 @@
 package employees;
 
 option java_package = "tcw.domain.protobuf";
-option java_outer_classname = "EmployeeProto";
+option java_outer_classname = "EmployeeProtoSimple";
 
-message Employee {
+message EmployeeSimple{
   optional int64 employeeId = 1;
   optional double salery = 2;
   optional bool consultant = 3;
   optional string employeeName = 4;
-  repeated string departments = 5;
+  optional string departmentA = 5;
+  optional string departmentB = 6;
+  optional string departmentC = 7;
 
 }
