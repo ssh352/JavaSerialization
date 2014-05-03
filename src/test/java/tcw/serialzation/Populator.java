@@ -11,7 +11,7 @@ import java.util.List;
 
 public class Populator {
 
-    public static final int POPULATION_SIZE = 1000;
+    public static final int POPULATION_SIZE = 100000;
 
     public static Employee employee() {
         Employee employee = new Employee();

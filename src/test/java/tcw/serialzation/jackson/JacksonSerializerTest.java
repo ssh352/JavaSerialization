@@ -47,8 +47,6 @@ public class JacksonSerializerTest {
             deserializedEmployee = jacksonSerializer.deserialize(serializedEmployee);
         }
         stopwatch.stop();
-        byte b = serializedEmployee[0];
-        System.out.println("Jackson:" + stopwatch.toString());
         return stopwatch.elapsed(TimeUnit.NANOSECONDS);
     }
 

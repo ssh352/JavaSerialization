@@ -59,8 +59,6 @@ public class ExtrenalizableSerializationTest {
         objectInputStream.close();
         bis.close();
         stopwatch.stop();
-        byte aByte = bytes[0];
-        System.out.println("Externalizable : " + stopwatch.toString());
         return stopwatch.elapsed(TimeUnit.NANOSECONDS);
     }
 

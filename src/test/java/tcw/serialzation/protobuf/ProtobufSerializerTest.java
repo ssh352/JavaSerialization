@@ -41,7 +41,6 @@ public class ProtobufSerializerTest {
             employeeDeserilaized = EmployeeProto.Employee.newBuilder().mergeFrom(serializedEmployee).build();
         }
         stopwatch.stop();
-        System.out.println("Protocol buffers:" + stopwatch.toString());
         return stopwatch.elapsed(TimeUnit.NANOSECONDS);
     }
 
@@ -56,8 +55,6 @@ public class ProtobufSerializerTest {
             employeeDeserilaized = EmployeeProtoSimple.EmployeeSimple.newBuilder().mergeFrom(serializedEmployee).build();
         }
         stopwatch.stop();
-        byte b = serializedEmployee[0];
-        System.out.println("Protocol buffers simple:" + stopwatch.toString());
         return stopwatch.elapsed(TimeUnit.NANOSECONDS);
     }
 

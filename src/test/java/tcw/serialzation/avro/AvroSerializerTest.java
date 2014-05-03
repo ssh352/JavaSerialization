@@ -39,8 +39,6 @@ public class AvroSerializerTest {
         byte[] serializedEmployee = avroSerializer.serialize(Populator.avroEmployees(POPULATION_SIZE));
         avroSerializer.deserialize(serializedEmployee); // dont need return values
         stopwatch.stop();
-        byte b = serializedEmployee[0];
-        System.out.println("Avro :" + stopwatch.toString());
         return stopwatch.elapsed(TimeUnit.NANOSECONDS);
     }
 

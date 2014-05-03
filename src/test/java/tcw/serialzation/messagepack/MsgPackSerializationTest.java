@@ -64,8 +64,6 @@ public class MsgPackSerializationTest {
             deserializedEmployee.deserialize(unpacker);
         }
         stopwatch.stop();
-        byte b = buf[0];
-        System.out.println("Messagepack:" + stopwatch.toString());
         return stopwatch.elapsed(TimeUnit.NANOSECONDS);
     }
 

@@ -61,8 +61,6 @@ public class KryoSerializerTest {
         input.close();
         bis.close();
         stopwatch.stop();
-        byte aByte = bytes[0];
-        System.out.println("Kryo:" + stopwatch.toString());
         return stopwatch.elapsed(TimeUnit.NANOSECONDS);
     }
 
