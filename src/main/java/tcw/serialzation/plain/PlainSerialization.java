@@ -27,4 +27,23 @@ public class PlainSerialization {
         return (Employee) o;
     }
 
+    public <T extends Serializable> byte[] serializeObject(T t) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(bos);
+        objectOutputStream.writeObject(t);
+        objectOutputStream.close();
+        byte[] bytes = bos.toByteArray();
+        bos.close();
+        return bytes;
+    }
+
+    public <T> T deserializeToObject(byte[] bytes,Class<T> clazz) throws IOException, ClassNotFoundException {
+        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+        ObjectInputStream objectInputStream = new ObjectInputStream(bis);
+        Object o = objectInputStream.readObject();
+        objectInputStream.close();
+        bis.close();
+        return clazz.cast(o);
+    }
+
 }

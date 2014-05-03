@@ -1,6 +1,5 @@
 package tcw.serialzation.avro;
 
-import com.google.common.collect.Lists;
 import org.apache.avro.file.DataFileReader;
 import org.apache.avro.file.DataFileWriter;
 import org.apache.avro.file.SeekableByteArrayInput;
@@ -12,7 +11,6 @@ import tcw.domain.avro.java.Employee;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 

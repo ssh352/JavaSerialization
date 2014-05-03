@@ -24,8 +24,30 @@
 <![endif]-->
 <div class="reveal">
     <div class="slides">
-        <section data-markdown="intro.md"></section>
-        <section data-markdown="overview.md"></section>
+        <section data-markdown>
+            <script type="text/template">
+                ##  Serialisering av data - et løst problem?
+                Tom Chrisitian Woods
+                Knowit Sør
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+                ## Oversikt
+                * Hva er serialisering ?
+                * Java serialisering fra JDK'en
+                * Serializable
+                * Externalizable
+                * Andre serialisentings bibliotek/verktøy
+                * Kryo
+                * Jackson
+                * Messagepack
+                * Avro
+                * Proto buffers
+                * SBE
+                * Konklusjon
+            </script>
+        </section>
         <section>
             <h2>Serialisering</h2>
             <img src="img/test.svg" style="border-style: none">
@@ -46,6 +68,21 @@
             ...
 
             }
+        </code>
+    </pre>
+        </section>
+
+        <section>
+            <h2>Serializable</h2>
+                <pre>
+        <code data-trim class="java">
+            private void writeObject(ObjectOutputStream stream) throws IOException;
+        </code>
+    </pre>
+    <pre>
+        <code data-trim class="java">
+            private void readObject(ObjectInputStream stream)throws IOException,
+                                             ClassNotFoundException;
         </code>
     </pre>
         </section>
@@ -84,7 +121,7 @@
     <pre>
         <code data-trim class="java">
             public void readExternal(ObjectInput in) throws IOException,
-                                                ClassNotFoundException {
+            ClassNotFoundException {
             employeeId = in.readLong();
             salery = in.readDouble();
             consultant = in.readBoolean();
@@ -93,6 +130,18 @@
             }
         </code>
     </pre>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+                ##  Ikke brytende endringer
+                * Legge til felt
+                * Legge til klasse
+                * Fjerne klasse
+                * Legge til writeObject/readObject
+                * Legge til java.io.Serializable
+                * Endre felt tilgang (public, package, protected og private)
+                * Endre et felt fra static til nonstatic eller transient til nontransient
+            </script>
         </section>
         <div>
         </div>
