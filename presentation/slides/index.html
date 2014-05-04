@@ -39,6 +39,7 @@
                     * Serializable
                     * Externalizable
                     * Versjonering
+                    * Ytelse
                 * Andre serialiserings bibliotek/verktøy
                     * Kryo
                     * Jackson
@@ -51,7 +52,7 @@
         </section>
         <section data-markdown>
             <script type="text/template">
-            ## Serialisering
+            ## Hva er serialisering ?
             </script>
         </section>
         <section>
@@ -96,14 +97,6 @@
                                              ClassNotFoundException;
         </code>
     </pre>
-        </section>
-        <section data-markdown>
-            <script type="text/template">
-                Hvis ikke writeObject/readObject er implementert blir
-                java.io.ObjectInputStream.defaultReadObject()
-                og
-                java.io.ObjectInputStream.defaultWriteObject() kalt.
-            </script>
         </section>
         <section>
             <h2>Custom writeObject/readObject</h2>
@@ -153,10 +146,19 @@ public &lt;T&gt; T deserialize(byte[] bytes,Class&lt;T&gt; clazz) throws
 }
         </code>
     </pre>
-
-
         </section>
-
+<section data-markdown>
+    <script type="text/template">
+        ## Hva skjer når writeObject blir kalt
+        * Objectet må selv ha eller arve fra et Object som
+            * Implementer serializable
+            * Har en tilgjengelig tom konstuktør
+        * writeObject blir kalt rekursivt fra løvnode til høyest forelder som fyller kriterene for å være serialiserbar
+        * Alle felt som er ikke transient eller static blir tatt med
+        * Hvis ikke Objectet/ene har serialVersionUID blir denne 64-bits hashen kalkulert
+        * NB! Bruker Refleksjon
+    </script>
+</section>
 
         <section>
             <h2>Externalizable</h2>
@@ -204,6 +206,11 @@ public &lt;T&gt; T deserialize(byte[] bytes,Class&lt;T&gt; clazz) throws
         </section>
         <section data-markdown>
             <script type="text/template">
+            ## Versjonering
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
                 ##  Ikke brytende endringer
                 * Legge til felt
                 * Legge til klasse
@@ -214,16 +221,79 @@ public &lt;T&gt; T deserialize(byte[] bytes,Class&lt;T&gt; clazz) throws
                 * Endre et felt fra static til nonstatic eller transient til nontransient
             </script>
         </section>
+        <section>
+            <h2>Ytelse</h2>
+        </section>
         <section data-markdown>
             <script type="text/template">
                 ##  Benchmarking
-
                 * Hvilken type data (stor vs lite objekt graf)
                 * Innholder collection typer
                 * Ekvivalent representasjon (Versjon data osv.)
                 * GC forurensing (Java)
                 * Ulike optimaliseringer
             </script>
+        </section>
+
+        <section>
+            <h2>TEST DATA</h2>
+                <pre>
+        <code data-trim class="java">
+long employeeId = 1234567891011; <- inc 1
+double salery = 123456.12;
+boolean consultant = true;
+String employeeName = "John Doe";
+List&lt;String&gt; departments = ["IT", "RD", "TECH"];
+        </code>
+    </pre>
+    </section>
+        <section>
+            <h3>Serializable</h3>
+            <h4>243 bytes</h4>
+            <div style="text-align: left;color: #f5e810">
+            AC ED 00 05 73 72 00 13 74 63 77 2E 64 6F 6D 61
+            69 6E 2E 45 6D 70 6C 6F 79 65 65 00 00 00 00 00
+            00 00 01 02 00 05 5A 00 0A 63 6F 6E 73 75 6C 74
+            61 6E 74 4A 00 0A 65 6D 70 6C 6F 79 65 65 49 64
+            44 00 06 73 61 6C 65 72 79 4C 00 0B 64 65 70 61
+            72 74 6D 65 6E 74 73 74 00 10 4C 6A 61 76 61 2F
+            75 74 69 6C 2F 4C 69 73 74 3B 4C 00 0C 65 6D 70
+            6C 6F 79 65 65 4E 61 6D 65 74 00 12 4C 6A 61 76
+            61 2F 6C 61 6E 67 2F 53 74 72 69 6E 67 3B 78 70
+            01 00 00 01 1F 71 FB 08 43 40 FE 24 01 EB 85 1E
+            B8 73 72 00 13 6A 61 76 61 2E 75 74 69 6C 2E 41
+            72 72 61 79 4C 69 73 74 78 81 D2 1D 99 C7 61 9D
+            03 00 01 49 00 04 73 69 7A 65 78 70 00 00 00 03
+            77 04 00 00 00 03 74 00 02 49 54 74 00 02 52 44
+            74 00 04 54 45 43 48 78 74 00 08 4A 6F 68 6E 20
+            44 6F 65
+            </div>
+        </section>
+
+        <section>
+            <h3>Serializable</h3>
+            <h4>303 bytes - men bare 60 nye</h4>
+            <div style="text-align: left;color: #f5e810">
+            AC ED 00 05 73 72 00 13 74 63 77 2E 64 6F 6D 61
+            69 6E 2E 45 6D 70 6C 6F 79 65 65 00 00 00 00 00
+            00 00 01 02 00 05 5A 00 0A 63 6F 6E 73 75 6C 74
+            61 6E 74 4A 00 0A 65 6D 70 6C 6F 79 65 65 49 64
+            44 00 06 73 61 6C 65 72 79 4C 00 0B 64 65 70 61
+            72 74 6D 65 6E 74 73 74 00 10 4C 6A 61 76 61 2F
+            75 74 69 6C 2F 4C 69 73 74 3B 4C 00 0C 65 6D 70
+            6C 6F 79 65 65 4E 61 6D 65 74 00 12 4C 6A 61 76
+            61 2F 6C 61 6E 67 2F 53 74 72 69 6E 67 3B 78 70
+            01 00 00 01 1F 71 FB 08 43 40 FE 24 01 EB 85 1E
+            B8 73 72 00 13 6A 61 76 61 2E 75 74 69 6C 2E 41
+            72 72 61 79 4C 69 73 74 78 81 D2 1D 99 C7 61 9D
+            03 00 01 49 00 04 73 69 7A 65 78 70 00 00 00 03
+            77 04 00 00 00 03 74 00 02 49 54 74 00 02 52 44
+            74 00 04 54 45 43 48 78 74 00 08 4A 6F 68 6E 20
+            44 6F 65 <span style="color: red">73 71 00 7E 00 00 01 00 00 01 1F 71 FB
+            08 44 40 FE 24 01 EB 85 1E B8 73 71 00 7E 00 04
+            00 00 00 03 77 04 00 00 00 03 71 00 7E 00 06 71
+            00 7E 00 07 71 00 7E 00 08 78 71 00 7E 00 09</span>
+            </div>
         </section>
 
         <div>
