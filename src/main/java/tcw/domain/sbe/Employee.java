@@ -215,7 +215,7 @@ public class Employee
         {
             case EPOCH: return "unix";
             case TIME_UNIT: return "nanosecond";
-            case SEMANTIC_TYPE: return "EmployeeName";
+            case SEMANTIC_TYPE: return "";
         }
 
         return "";
@@ -250,17 +250,17 @@ public class Employee
         return length;
     }
 
-    public static int departmentId()
+    public static int departmentAId()
     {
         return 5;
     }
 
-    public static String departmentCharacterEncoding()
+    public static String departmentACharacterEncoding()
     {
         return "UTF-8";
     }
 
-    public static String departmentMetaAttribute(final MetaAttribute metaAttribute)
+    public static String departmentAMetaAttribute(final MetaAttribute metaAttribute)
     {
         switch (metaAttribute)
         {
@@ -272,12 +272,12 @@ public class Employee
         return "";
     }
 
-    public static int departmentHeaderSize()
+    public static int departmentAHeaderSize()
     {
         return 1;
     }
 
-    public int getDepartment(final byte[] dst, final int dstOffset, final int length)
+    public int getDepartmentA(final byte[] dst, final int dstOffset, final int length)
     {
         final int sizeOfLengthField = 1;
         final int limit = limit();
@@ -290,7 +290,109 @@ public class Employee
         return bytesCopied;
     }
 
-    public int putDepartment(final byte[] src, final int srcOffset, final int length)
+    public int putDepartmentA(final byte[] src, final int srcOffset, final int length)
+    {
+        final int sizeOfLengthField = 1;
+        final int limit = limit();
+        limit(limit + sizeOfLengthField + length);
+        CodecUtil.uint8Put(buffer, limit, (short)length);
+        CodecUtil.int8sPut(buffer, limit + sizeOfLengthField, src, srcOffset, length);
+
+        return length;
+    }
+
+    public static int departmentBId()
+    {
+        return 6;
+    }
+
+    public static String departmentBCharacterEncoding()
+    {
+        return "UTF-8";
+    }
+
+    public static String departmentBMetaAttribute(final MetaAttribute metaAttribute)
+    {
+        switch (metaAttribute)
+        {
+            case EPOCH: return "unix";
+            case TIME_UNIT: return "nanosecond";
+            case SEMANTIC_TYPE: return "";
+        }
+
+        return "";
+    }
+
+    public static int departmentBHeaderSize()
+    {
+        return 1;
+    }
+
+    public int getDepartmentB(final byte[] dst, final int dstOffset, final int length)
+    {
+        final int sizeOfLengthField = 1;
+        final int limit = limit();
+        buffer.checkLimit(limit + sizeOfLengthField);
+        final int dataLength = CodecUtil.uint8Get(buffer, limit);
+        final int bytesCopied = Math.min(length, dataLength);
+        limit(limit + sizeOfLengthField + dataLength);
+        CodecUtil.int8sGet(buffer, limit + sizeOfLengthField, dst, dstOffset, bytesCopied);
+
+        return bytesCopied;
+    }
+
+    public int putDepartmentB(final byte[] src, final int srcOffset, final int length)
+    {
+        final int sizeOfLengthField = 1;
+        final int limit = limit();
+        limit(limit + sizeOfLengthField + length);
+        CodecUtil.uint8Put(buffer, limit, (short)length);
+        CodecUtil.int8sPut(buffer, limit + sizeOfLengthField, src, srcOffset, length);
+
+        return length;
+    }
+
+    public static int departmentCId()
+    {
+        return 7;
+    }
+
+    public static String departmentCCharacterEncoding()
+    {
+        return "UTF-8";
+    }
+
+    public static String departmentCMetaAttribute(final MetaAttribute metaAttribute)
+    {
+        switch (metaAttribute)
+        {
+            case EPOCH: return "unix";
+            case TIME_UNIT: return "nanosecond";
+            case SEMANTIC_TYPE: return "";
+        }
+
+        return "";
+    }
+
+    public static int departmentCHeaderSize()
+    {
+        return 1;
+    }
+
+    public int getDepartmentC(final byte[] dst, final int dstOffset, final int length)
+    {
+        final int sizeOfLengthField = 1;
+        final int limit = limit();
+        buffer.checkLimit(limit + sizeOfLengthField);
+        final int dataLength = CodecUtil.uint8Get(buffer, limit);
+        final int bytesCopied = Math.min(length, dataLength);
+        limit(limit + sizeOfLengthField + dataLength);
+        CodecUtil.int8sGet(buffer, limit + sizeOfLengthField, dst, dstOffset, bytesCopied);
+
+        return bytesCopied;
+    }
+
+    public int putDepartmentC(final byte[] src, final int srcOffset, final int length)
     {
         final int sizeOfLengthField = 1;
         final int limit = limit();

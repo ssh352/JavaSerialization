@@ -15,14 +15,18 @@ public class SbeSerializer {
     private static final Employee EMPLOYEE_SBE = new Employee();
     private static final MessageHeader MESSAGE_HEADER = new MessageHeader();
     private static byte[] NAME;
-    private static byte[] DEPARTMENT;
+    private static byte[] DEPARTMENTA;
+    private static byte[] DEPARTMENTB;
+    private static byte[] DEPARTMENTC;
     final ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
     final DirectBuffer directBuffer = new DirectBuffer(byteBuffer);
 
     static {
         try {
             NAME = "John Doe".getBytes(Employee.employeeNameCharacterEncoding());
-            DEPARTMENT = "IT".getBytes(Employee.departmentCharacterEncoding());
+            DEPARTMENTA = "IT".getBytes(Employee.departmentACharacterEncoding());
+            DEPARTMENTB = "RD".getBytes(Employee.departmentBCharacterEncoding());
+            DEPARTMENTC = "TECH".getBytes(Employee.departmentCCharacterEncoding());
         } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
@@ -53,10 +57,26 @@ public class SbeSerializer {
         bufferOffset += MESSAGE_HEADER.size();
 
         try {
-            decode(EMPLOYEE_SBE, directBuffer, bufferOffset, actingBlockLength, schemaId, actingVersion);
+            decode(EMPLOYEE_SBE, directBuffer, bufferOffset, actingBlockLength, actingVersion);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public DirectBuffer serialize(){
+        final short messageTemplateVersion = 0;
+        int bufferOffset = 0;
+
+        MESSAGE_HEADER.wrap(directBuffer, bufferOffset, messageTemplateVersion)
+                .blockLength(EMPLOYEE_SBE.sbeBlockLength())
+                .templateId(EMPLOYEE_SBE.sbeTemplateId())
+                .schemaId(EMPLOYEE_SBE.sbeSchemaId())
+                .version(EMPLOYEE_SBE.sbeSchemaVersion());
+
+        bufferOffset += MESSAGE_HEADER.size();
+
+        encode(EMPLOYEE_SBE, directBuffer, bufferOffset);
+        return directBuffer;
     }
 
     public static int encode(final Employee employee, final DirectBuffer directBuffer, final int bufferOffset) {
@@ -66,7 +86,9 @@ public class SbeSerializer {
                 .salery(123456.12)
                 .consultant(BooleanType.TRUE)
                 .putEmployeeName(NAME, srcOffset, NAME.length);
-        employee.putDepartment(DEPARTMENT, srcOffset, DEPARTMENT.length);
+        employee.putDepartmentA(DEPARTMENTA, srcOffset, DEPARTMENTA.length);
+        employee.putDepartmentB(DEPARTMENTB, srcOffset, DEPARTMENTB.length);
+        employee.putDepartmentC(DEPARTMENTC, srcOffset, DEPARTMENTC.length);
         return employee.size();
     }
 
@@ -75,7 +97,6 @@ public class SbeSerializer {
                               final DirectBuffer directBuffer,
                               final int bufferOffset,
                               final int actingBlockLength,
-                              final int schemaId,
                               final int actingVersion) throws Exception {
         final byte[] buffer = new byte[128];
         final StringBuilder sb = new StringBuilder();

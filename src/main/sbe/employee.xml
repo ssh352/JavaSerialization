@@ -29,8 +29,10 @@
         <field name="employeeId" id="1" type="uint64"/>
         <field name="salery" id="2" type="double"/>
         <field name="consultant" id="3" type="BooleanType"/>
-        <data name="employeeName" id="4" type="varDataEncoding" semanticType="EmployeeName"/>
-        <data name="department" id="5" type="varDataEncoding"/>
+        <data name="employeeName" id="4" type="varDataEncoding"/>
+        <data name="departmentA" id="5" type="varDataEncoding"/>
+        <data name="departmentB" id="6" type="varDataEncoding"/>
+        <data name="departmentC" id="7" type="varDataEncoding"/>
     </message>
 
 </messageSchema>
