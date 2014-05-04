@@ -15,7 +15,7 @@ import tcw.serialzation.sbe.SbeSerializerTest;
 
 public class BenchmarkSuite {
 
-    private final int TIMES = 3;
+    private final int TIMES = 10;
     
     @Test
     public void runAllBenchmarks() throws Exception {

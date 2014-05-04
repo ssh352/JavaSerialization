@@ -35,22 +35,33 @@
             <script type="text/template">
                 ## Oversikt
                 * Hva er serialisering ?
-                * Java serialisering fra JDK'en
-                * Serializable
-                * Externalizable
-                * Andre serialisentings bibliotek/verktøy
-                * Kryo
-                * Jackson
-                * Messagepack
-                * Avro
-                * Proto buffers
-                * SBE
+                * Serialisering med Java
+                    * Serializable
+                    * Externalizable
+                    * Versjonering
+                * Andre serialiserings bibliotek/verktøy
+                    * Kryo
+                    * Jackson
+                    * Messagepack
+                    * Avro
+                    * Proto buffers
+                    * SBE
                 * Konklusjon
+            </script>
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+            ## Serialisering
             </script>
         </section>
         <section>
             <h2>Serialisering</h2>
             <img src="img/test.svg" style="border-style: none">
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+            ##Serialisering med Java
+            </script>
         </section>
         <section>
             <h2>Serializable</h2>
@@ -86,6 +97,66 @@
         </code>
     </pre>
         </section>
+        <section data-markdown>
+            <script type="text/template">
+                Hvis ikke writeObject/readObject er implementert blir
+                java.io.ObjectInputStream.defaultReadObject()
+                og
+                java.io.ObjectInputStream.defaultWriteObject() kalt.
+            </script>
+        </section>
+        <section>
+            <h2>Custom writeObject/readObject</h2>
+    <pre>
+        <code data-trim class="java">
+private String name;
+private transient String note;
+
+private void writeObject(ObjectOutputStream out) throws IOException {
+out.defaultWriteObject();
+out.writeObject(this.note);
+}
+
+private void readObject(ObjectInputStream in) throws IOException,
+                                          ClassNotFoundException {
+in.defaultReadObject();
+this.note = (String) in.readObject();
+}
+        </code>
+    </pre>
+        </section>
+
+        <section>
+            <h2>Kode for å serialisere/deserialisere</h2>
+                <pre>
+        <code data-trim class="java">
+public &lt;T extends Serializable&gt; byte[] serialize(T t) throws IOException {
+  try (ByteArrayOutputStream bos = new ByteArrayOutputStream()){
+    try (ObjectOutputStream os = new ObjectOutputStream(bos)){
+        os.writeObject(t);
+    }
+    return bos.toByteArray();
+  }
+}
+        </code>
+    </pre>
+
+                 <pre>
+        <code data-trim class="java">
+public &lt;T&gt; T deserialize(byte[] bytes,Class&lt;T&gt; clazz) throws
+                                IOException, ClassNotFoundException {
+  try ( ByteArrayInputStream bis = new ByteArrayInputStream(bytes)){
+    try (ObjectInputStream objectInputStream = new ObjectInputStream(bis)){
+        return clazz.cast(objectInputStream.readObject());
+    }
+  }
+}
+        </code>
+    </pre>
+
+
+        </section>
+
 
         <section>
             <h2>Externalizable</h2>
@@ -143,6 +214,18 @@
                 * Endre et felt fra static til nonstatic eller transient til nontransient
             </script>
         </section>
+        <section data-markdown>
+            <script type="text/template">
+                ##  Benchmarking
+
+                * Hvilken type data (stor vs lite objekt graf)
+                * Innholder collection typer
+                * Ekvivalent representasjon (Versjon data osv.)
+                * GC forurensing (Java)
+                * Ulike optimaliseringer
+            </script>
+        </section>
+
         <div>
         </div>
 

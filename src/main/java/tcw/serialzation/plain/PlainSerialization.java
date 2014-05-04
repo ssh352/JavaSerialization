@@ -9,41 +9,36 @@ public class PlainSerialization {
 
 
     public byte[] serialize(Employee employee) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(bos);
-        objectOutputStream.writeObject(employee);
-        objectOutputStream.close();
-        byte[] bytes = bos.toByteArray();
-        bos.close();
-        return bytes;
+        try ( ByteArrayOutputStream bos = new ByteArrayOutputStream()){
+            try (ObjectOutputStream os = new ObjectOutputStream(bos)){
+                os.writeObject(employee);
+            }
+            return bos.toByteArray();
+        }
     }
 
     public Employee deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-        ObjectInputStream objectInputStream = new ObjectInputStream(bis);
-        Object o = objectInputStream.readObject();
-        objectInputStream.close();
-        bis.close();
-        return (Employee) o;
+        try ( ByteArrayInputStream bis = new ByteArrayInputStream(bytes)){
+            try (ObjectInputStream objectInputStream = new ObjectInputStream(bis)){
+                return (Employee)objectInputStream.readObject();
+            }
+        }
     }
 
     public <T extends Serializable> byte[] serializeObject(T t) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(bos);
-        objectOutputStream.writeObject(t);
-        objectOutputStream.close();
-        byte[] bytes = bos.toByteArray();
-        bos.close();
-        return bytes;
+        try ( ByteArrayOutputStream bos = new ByteArrayOutputStream()){
+            try (ObjectOutputStream os = new ObjectOutputStream(bos)){
+                os.writeObject(t);
+            }
+            return bos.toByteArray();
+        }
     }
 
     public <T> T deserializeToObject(byte[] bytes,Class<T> clazz) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-        ObjectInputStream objectInputStream = new ObjectInputStream(bis);
-        Object o = objectInputStream.readObject();
-        objectInputStream.close();
-        bis.close();
-        return clazz.cast(o);
+        try ( ByteArrayInputStream bis = new ByteArrayInputStream(bytes)){
+            try (ObjectInputStream objectInputStream = new ObjectInputStream(bis)){
+                return clazz.cast(objectInputStream.readObject());
+            }
+        }
     }
-
 }

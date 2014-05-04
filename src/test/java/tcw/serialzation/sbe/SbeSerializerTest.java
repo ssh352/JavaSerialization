@@ -3,17 +3,14 @@ package tcw.serialzation.sbe;
 import com.google.common.base.Stopwatch;
 import org.junit.Ignore;
 import org.junit.Test;
+import tcw.serialzation.HelperUtils;
 import tcw.serialzation.Populator;
+import uk.co.real_logic.sbe.codec.java.DirectBuffer;
 
+import java.nio.ByteBuffer;
 import java.util.concurrent.TimeUnit;
 
 public class SbeSerializerTest {
-
-    @Test
-    public void validation() throws Exception {
-        SbeSerializer sbeSerializer = new SbeSerializer();
-        sbeSerializer.serializeDeserialize();
-    }
 
 
     public long benchmark() throws Exception {
