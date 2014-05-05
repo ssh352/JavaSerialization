@@ -393,6 +393,21 @@ Objekt objekt = mapper.readValue(bytes, Objekt.class);
             <img src="img/messagepack.png" style="border-style: none">
         </section>
         <section>
+            <h2>Kode for å serialisere/deserialisere</h2>
+                <pre>
+        <code data-trim class="java">
+ObjectMapper mapper = new ObjectMapper();
+byte[] bytes = mapper.writeValueAsBytes(objekt);
+        </code>
+    </pre>
+                 <pre>
+        <code data-trim class="java">
+ObjectMapper mapper = new ObjectMapper();
+Objekt objekt = mapper.readValue(bytes, Objekt.class);
+        </code>
+    </pre>
+        </section>
+        <section>
             <h3>Messagepack</h3>
             <h4>40 bytes</h4>
             <div style="text-align: left;color: #f5e810">
@@ -403,6 +418,30 @@ Objekt objekt = mapper.readValue(bytes, Objekt.class);
         </section>
         <section>
             <img src="img/avro-logo.png" style="border-style: none">
+        </section>
+        <section>
+            <h2>Kode for å serialisere/deserialisere</h2>
+                <pre>
+        <code data-trim class="java">
+DatumWriter&lt;Objekt&gt; userDatumWriter = new SpecificDatumWriter&lt;&gt;(Objekt.class);
+ByteArrayOutputStream bos = new ByteArrayOutputStream();
+try (DataFileWriter&lt;Objekt&gt; dataFileWriter = new DataFileWriter&lt;&gt;(userDatumWriter)) {
+    try (DataFileWriter&lt;Objekt&gt; writer = dataFileWriter.create(objekt.getSchema(), bos)) {
+        writer.append(objekt);
+    }
+}
+byte[] bytes = bos.toByteArray();
+        </code>
+    </pre>
+                 <pre>
+        <code data-trim class="java">
+DatumReader&lt;Objekt&gt; userDatumReader = new SpecificDatumReader&lt;&gt;(Employee.class);
+SeekableByteArrayInput sbai = new SeekableByteArrayInput(bytes);
+try (DataFileReader&lt;Objekt&gt; dataFileReader = new DataFileReader&lt;&gt;(sbai, userDatumReader)) {
+    Employee deserialized = dataFileReader.next();
+}
+        </code>
+    </pre>
         </section>
         <section>
             <h3>Avro</h3>
@@ -479,6 +518,21 @@ Objekt objekt = mapper.readValue(bytes, Objekt.class);
         <section>
             <h2>Protocol Buffers</h2>
         </section>
+        <section>
+            <h2>Kode for å serialisere/deserialisere</h2>
+                <pre>
+        <code data-trim class="java">
+byte[] bytes = objekt.toByteArray();
+        </code>
+    </pre>
+                 <pre>
+        <code data-trim class="java">
+YtreObjekt.Objekt objekt;
+objekt = YtreObjekt.Objekt.newBuilder().mergeFrom(bytes).build();
+        </code>
+    </pre>
+        </section>
+
         <section>
             <h3>Protocol Buffers</h3>
             <h4>42 bytes</h4>

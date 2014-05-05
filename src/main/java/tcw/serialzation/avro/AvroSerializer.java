@@ -17,30 +17,29 @@ import java.util.List;
 public class AvroSerializer {
 
     DatumWriter<Employee> userDatumWriter = new SpecificDatumWriter<Employee>(Employee.class);
-    DataFileWriter<Employee> dataFileWriter = new DataFileWriter<Employee>(userDatumWriter);
     DatumReader<Employee> userDatumReader = new SpecificDatumReader<Employee>(Employee.class);
 
-    public byte[] serialize(List<Employee> employee) throws IOException {
+    public byte[] serialize(List<Employee> employees) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        dataFileWriter.create(employee.get(0).getSchema(), bos);
-        for (Employee Employee : employee) {
-            dataFileWriter.append(Employee);
+        try (DataFileWriter<Employee> dataFileWriter = new DataFileWriter<Employee>(userDatumWriter)) {
+            try (DataFileWriter<Employee> writer = dataFileWriter.create(employees.get(0).getSchema(), bos)) {
+                for (Employee employee : employees) {
+                    writer.append(employee);
+                }
+            }
         }
-        dataFileWriter.close();
-        bos.close();
         return bos.toByteArray();
     }
 
     //only returns last employee
     public Employee deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
         SeekableByteArrayInput sbai = new SeekableByteArrayInput(bytes);
-        DataFileReader<Employee> dataFileReader = new DataFileReader<Employee>(sbai, userDatumReader);
-        Employee employee = null;
         Employee deserialized = null;
-        while (dataFileReader.hasNext()) {
-            deserialized = dataFileReader.next(employee);
+        try (DataFileReader<Employee> dataFileReader = new DataFileReader<Employee>(sbai, userDatumReader)) {
+            while (dataFileReader.hasNext()) {
+                deserialized = dataFileReader.next();
+            }
         }
-        sbai.close();
         return deserialized;
     }
 }
