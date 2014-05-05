@@ -202,20 +202,20 @@ try (ObjectInputStream objectInputStream = new ObjectInputStream(bis)){
             <h2>Kode for å serialisere/deserialisere</h2>
                 <pre>
         <code data-trim class="java">
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            try (ObjectOutputStream os = new ObjectOutputStream(bos)){
-            os.writeExternal(objekt);
-            }
-            byte[] bytes = bos.toByteArray();
+ByteArrayOutputStream bos = new ByteArrayOutputStream();
+try (ObjectOutputStream os = new ObjectOutputStream(bos)){
+os.writeExternal(objekt);
+}
+byte[] bytes = bos.toByteArray();
         </code>
     </pre>
 
                  <pre>
         <code data-trim class="java">
-            ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-            try (ObjectInputStream objectInputStream = new ObjectInputStream(bis)){
-            Objekt objekt = (Objekt) objectInputStream.readExternal();
-            }
+ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+try (ObjectInputStream objectInputStream = new ObjectInputStream(bis)){
+Objekt objekt = (Objekt) objectInputStream.readExternal();
+}
         </code>
     </pre>
         </section>
@@ -554,6 +554,43 @@ Objekt objekt = mapper.readValue(bytes, Objekt.class);
             <img src="img/avro-logo.png" style="border-style: none">
         </section>
         <section>
+            <h2>Avro</h2>
+            <table>
+                <tr>
+                    <td width="400">Språk</td>
+                    <td>Java,C/C++,C#</td>
+                </tr>
+                <tr>
+                    <td>Bruk</td>
+                    <td>Kode generering fra json skjema</td>
+                </tr>
+                <tr>
+                    <td>Versjonering</td>
+                    <td>Union og default verdier</td>
+                </tr>
+                <tr>
+                    <td>Format</td>
+                    <td>Binært</td>
+                </tr>
+                <tr>
+                    <td>Brukervennlighet</td>
+                    <td>Bra</td>
+                </tr>
+                <tr>
+                    <td>Ytelse</td>
+                    <td>Bra</td>
+                </tr>
+                <tr>
+                    <td>Pluss</td>
+                    <td>Skjema blir serialiset med beskjeden - Passer til dynamiske språk</td>
+                </tr>
+                <tr>
+                    <td>Minus</td>
+                    <td>Dokumentasjon og ytelse</td>
+                </tr>
+            </table>
+        </section>
+        <section>
             <h2>Kode for å serialisere/deserialisere</h2>
                 <pre>
         <code data-trim class="java">
@@ -652,6 +689,44 @@ try (DataFileReader&lt;Objekt&gt; dataFileReader = new DataFileReader&lt;&gt;(sb
         <section>
             <h2>Protocol Buffers</h2>
         </section>
+
+        <section>
+            <h2>Protocol Buffers</h2>
+            <table>
+                <tr>
+                    <td width="400">Språk</td>
+                    <td>Java,C/C++,Python</td>
+                </tr>
+                <tr>
+                    <td>Bruk</td>
+                    <td>Kode generering fra skjema</td>
+                </tr>
+                <tr>
+                    <td>Versjonering</td>
+                    <td>Required og optional felt</td>
+                </tr>
+                <tr>
+                    <td>Format</td>
+                    <td>Binært</td>
+                </tr>
+                <tr>
+                    <td>Brukervennlighet</td>
+                    <td>Meget Bra</td>
+                </tr>
+                <tr>
+                    <td>Ytelse</td>
+                    <td>Meget bra</td>
+                </tr>
+                <tr>
+                    <td>Pluss</td>
+                    <td>Lett å bruke god ytelse</td>
+                </tr>
+                <tr>
+                    <td>Minus</td>
+                    <td>Installasjon og mangel på god maven støtte</td>
+                </tr>
+            </table>
+        </section>
         <section>
             <h2>Kode for å serialisere/deserialisere</h2>
                 <pre>
@@ -676,8 +751,46 @@ objekt = YtreObjekt.Objekt.newBuilder().mergeFrom(bytes).build();
                 2A 02 52 44 2A 04 54 45 43 48
             </div>
         </section>
+
         <section>
             <h2>SBE</h2>
+        </section>
+        <section>
+            <h2>SBE</h2>
+            <table>
+                <tr>
+                    <td width="400">Språk</td>
+                    <td>Java,C/C++,.Net</td>
+                </tr>
+                <tr>
+                    <td>Bruk</td>
+                    <td>Kode generering fra XML skjema</td>
+                </tr>
+                <tr>
+                    <td>Versjonering</td>
+                    <td>Required og optional felt</td>
+                </tr>
+                <tr>
+                    <td>Format</td>
+                    <td>Binært</td>
+                </tr>
+                <tr>
+                    <td>Brukervennlighet</td>
+                    <td>Lite Bra</td>
+                </tr>
+                <tr>
+                    <td>Ytelse</td>
+                    <td>Særdeles bra</td>
+                </tr>
+                <tr>
+                    <td>Pluss</td>
+                    <td>Ufattelig ytelse</td>
+                </tr>
+                <tr>
+                    <td>Minus</td>
+                    <td>Helt forferdelig å bruke</td>
+                </tr>
+            </table>
         </section>
         <section>
             <h2>Kode for å serialisere/deserialisere</h2>
