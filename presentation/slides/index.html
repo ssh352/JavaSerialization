@@ -142,13 +142,13 @@ try (ObjectInputStream objectInputStream = new ObjectInputStream(bis)){
         </section>
 <section data-markdown>
     <script type="text/template">
-        ## Hva skjer når writeObject blir kalt
-        * Objectet må selv ha eller arve fra et Object som
+        ## writeObject
+        * Objectet må selv ha eller arve fra et Object som:
             * Implementer serializable
             * Har en tilgjengelig tom konstuktør
         * writeObject blir kalt rekursivt fra løvnode til høyest forelder som fyller kriterene for å være serialiserbar
         * Alle felt som er ikke transient eller static blir tatt med
-        * Hvis ikke Objectet/ene har serialVersionUID blir denne 64-bits hashen kalkulert
+        * Hvis ikke Objectet/ene har serialVersionUID blir en 64-bits hash kalkulert
         * NB! Bruker Refleksjon
     </script>
 </section>
@@ -197,6 +197,29 @@ try (ObjectInputStream objectInputStream = new ObjectInputStream(bis)){
         </code>
     </pre>
         </section>
+
+        <section>
+            <h2>Kode for å serialisere/deserialisere</h2>
+                <pre>
+        <code data-trim class="java">
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            try (ObjectOutputStream os = new ObjectOutputStream(bos)){
+            os.writeExternal(objekt);
+            }
+            byte[] bytes = bos.toByteArray();
+        </code>
+    </pre>
+
+                 <pre>
+        <code data-trim class="java">
+            ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+            try (ObjectInputStream objectInputStream = new ObjectInputStream(bis)){
+            Objekt objekt = (Objekt) objectInputStream.readExternal();
+            }
+        </code>
+    </pre>
+        </section>
+
         <section data-markdown>
             <script type="text/template">
             ## Versjonering
@@ -324,6 +347,43 @@ List&lt;String&gt; departments = ["IT", "RD", "TECH"];
             <img src="img/kryo-logo.jpg" style="border-style: none">
         </section>
         <section>
+            <h2>Kryo</h2>
+            <table>
+                <tr>
+                    <td width="400">Språk</td>
+                    <td>Java</td>
+                </tr>
+                <tr>
+                    <td>Bruk</td>
+                    <td>Fra kode</td>
+                </tr>
+                <tr>
+                    <td>Versjonering</td>
+                    <td>TaggedFieldSerializer og CompatibleFieldSerializer</td>
+                </tr>
+                <tr>
+                    <td>Format</td>
+                    <td>Binært</td>
+                </tr>
+                <tr>
+                    <td>Brukervennlighet</td>
+                    <td>Særdeles bra</td>
+                </tr>
+                <tr>
+                    <td>Ytelse</td>
+                    <td>Meget bra</td>
+                </tr>
+                <tr>
+                    <td>Pluss</td>
+                    <td>Enkelt og konfigurerbart</td>
+                </tr>
+                <tr>
+                    <td>Minus</td>
+                    <td>Kun for Java</td>
+                </tr>
+            </table>
+        </section>
+        <section>
             <h2>Kode for å serialisere/deserialisere</h2>
                 <pre>
         <code data-trim class="java">
@@ -360,6 +420,43 @@ try (Input input = new Input(bis)){
             <h2>Jackson</h2>
         </section>
         <section>
+            <h2>Jackson</h2>
+            <table>
+                <tr>
+                    <td width="400">Språk</td>
+                    <td>Alle som kan parse JSON</td>
+                </tr>
+                <tr>
+                    <td>Bruk</td>
+                    <td>Fra kode</td>
+                </tr>
+                <tr>
+                    <td>Versjonering</td>
+                    <td>Ingen</td>
+                </tr>
+                <tr>
+                    <td>Format</td>
+                    <td>JSON</td>
+                </tr>
+                <tr>
+                    <td>Brukervennlighet</td>
+                    <td>Særdeles bra</td>
+                </tr>
+                <tr>
+                    <td>Ytelse</td>
+                    <td>Bra</td>
+                </tr>
+                <tr>
+                    <td>Pluss</td>
+                    <td>Internet vennlig og lesbart</td>
+                </tr>
+                <tr>
+                    <td>Minus</td>
+                    <td>Ytelse og størrelse</td>
+                </tr>
+            </table>
+        </section>
+        <section>
             <h2>Kode for å serialisere/deserialisere</h2>
                 <pre>
         <code data-trim class="java">
@@ -391,6 +488,43 @@ Objekt objekt = mapper.readValue(bytes, Objekt.class);
         </section>
         <section>
             <img src="img/messagepack.png" style="border-style: none">
+        </section>
+        <section>
+            <h2>Messagepack</h2>
+            <table>
+                <tr>
+                    <td width="400">Språk</td>
+                    <td>28 språk</td>
+                </tr>
+                <tr>
+                    <td>Bruk</td>
+                    <td>Fra kode</td>
+                </tr>
+                <tr>
+                    <td>Versjonering</td>
+                    <td>Ingen nå</td>
+                </tr>
+                <tr>
+                    <td>Format</td>
+                    <td>Binært</td>
+                </tr>
+                <tr>
+                    <td>Brukervennlighet</td>
+                    <td>Meget bra</td>
+                </tr>
+                <tr>
+                    <td>Ytelse</td>
+                    <td>Bra - Men må gjøres manuelt</td>
+                </tr>
+                <tr>
+                    <td>Pluss</td>
+                    <td>Kompakt og støttet av mange språk</td>
+                </tr>
+                <tr>
+                    <td>Minus</td>
+                    <td>Ytelse i java hvis annoteringer blir brukt</td>
+                </tr>
+            </table>
         </section>
         <section>
             <h2>Kode for å serialisere/deserialisere</h2>
@@ -544,6 +678,10 @@ objekt = YtreObjekt.Objekt.newBuilder().mergeFrom(bytes).build();
         </section>
         <section>
             <h2>SBE</h2>
+        </section>
+        <section>
+            <h2>Kode for å serialisere/deserialisere</h2>
+            <a href="img/sbe.txt">OMG</a>
         </section>
         <section>
             <h3>SBE</h3>

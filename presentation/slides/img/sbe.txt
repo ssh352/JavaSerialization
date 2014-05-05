@@ -1,15 +1,3 @@
-package tcw.serialzation.sbe;
-
-
-import tcw.domain.sbe.BooleanType;
-import tcw.domain.sbe.Employee;
-import tcw.domain.sbe.MessageHeader;
-import uk.co.real_logic.sbe.codec.java.DirectBuffer;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
-
 public class SbeSerializer {
 
     private static final Employee EMPLOYEE_SBE = new Employee();
@@ -38,10 +26,10 @@ public class SbeSerializer {
         int bufferOffset = 0;
 
         MESSAGE_HEADER.wrap(directBuffer, bufferOffset, messageTemplateVersion)
-                .blockLength(EMPLOYEE_SBE.sbeBlockLength())
-                .templateId(EMPLOYEE_SBE.sbeTemplateId())
-                .schemaId(EMPLOYEE_SBE.sbeSchemaId())
-                .version(EMPLOYEE_SBE.sbeSchemaVersion());
+        .blockLength(EMPLOYEE_SBE.sbeBlockLength())
+        .templateId(EMPLOYEE_SBE.sbeTemplateId())
+        .schemaId(EMPLOYEE_SBE.sbeSchemaId())
+        .version(EMPLOYEE_SBE.sbeSchemaVersion());
 
         bufferOffset += MESSAGE_HEADER.size();
 
@@ -66,10 +54,10 @@ public class SbeSerializer {
     public static int encode(final Employee employee, final DirectBuffer directBuffer, final int bufferOffset) {
         final int srcOffset = 0;
         employee.wrapForEncode(directBuffer, bufferOffset)
-                .employeeId(12345)
-                .salery(123456.12)
-                .consultant(BooleanType.TRUE)
-                .putEmployeeName(NAME, srcOffset, NAME.length);
+        .employeeId(12345)
+        .salery(123456.12)
+        .consultant(BooleanType.TRUE)
+        .putEmployeeName(NAME, srcOffset, NAME.length);
         employee.putDepartmentA(DEPARTMENTA, srcOffset, DEPARTMENTA.length);
         employee.putDepartmentB(DEPARTMENTB, srcOffset, DEPARTMENTB.length);
         employee.putDepartmentC(DEPARTMENTC, srcOffset, DEPARTMENTC.length);
@@ -78,22 +66,12 @@ public class SbeSerializer {
 
 
     public static void decode(final Employee employee,
-                              final DirectBuffer directBuffer,
-                              final int bufferOffset,
-                              final int actingBlockLength,
-                              final int actingVersion) throws Exception {
+        final DirectBuffer directBuffer,
+        final int bufferOffset,
+        final int actingBlockLength,
+        final int actingVersion) throws Exception {
         final byte[] buffer = new byte[128];
         final StringBuilder sb = new StringBuilder();
         employee.wrapForDecode(directBuffer, bufferOffset, actingBlockLength, actingVersion);
-
-//        sb.append("\nemployee.templateId=").append(employee.sbeTemplateId());
-//        sb.append("\nemployee.schemaId=").append(schemaId);
-//        sb.append("\nemployee.schemaVersion=").append(employee.sbeSchemaVersion());
-//        sb.append("\nemployee.employeeId=").append(employee.employeeId());
-//        sb.append("\nemployee.salery=").append(employee.salery());
-//        sb.append("\nemployee.consultant=").append(employee.consultant());
-//        sb.append("\nemployee.employeeName=").append(new String(buffer, 0, employee.getEmployeeName(buffer, 0, buffer.length), Employee.employeeNameCharacterEncoding()));
-//        sb.append("\nemployee.department=").append(new String(buffer, 0, employee.getDepartment(buffer, 0, buffer.length), Employee.departmentCharacterEncoding()));
-//        System.out.println(sb.toString());
     }
 }
