@@ -15,7 +15,7 @@ import tcw.serialzation.sbe.SbeSerializerTest;
 
 public class BenchmarkSuite {
 
-    private final int TIMES = 10;
+    private final int TIMES = 3;
     
     @Test
     public void runAllBenchmarks() throws Exception {
@@ -33,9 +33,14 @@ public class BenchmarkSuite {
 
         System.out.printf("BENCHMARKING STARTED WITH SAMPLE SET OF %s OBJECT, AVERAGE OF %s TIMES ...\n\n", Populator.POPULATION_SIZE, TIMES);
 
-        long kryoNanoSeconds = 0;
+        long plainNanoSeconds = 0;
         for (int i = 0; i < TIMES; i++) {
-            kryoNanoSeconds = kryoNanoSeconds + kryoSerializerTest.benchmark();
+            plainNanoSeconds = plainNanoSeconds + plainSerializationTest.benchmark();
+        }
+
+        long sbeNanoSeconds = 0;
+        for (int i = 0; i < TIMES; i++) {
+            sbeNanoSeconds = sbeNanoSeconds + sbeSerializerTest.benchmark();
         }
 
         long protobufNanoSeconds = 0;
@@ -68,15 +73,11 @@ public class BenchmarkSuite {
             msgpackNanoSeconds = msgpackNanoSeconds +msgPackSerializationTest.benchmark();
         }
 
-        long plainNanoSeconds = 0;
+        long kryoNanoSeconds = 0;
         for (int i = 0; i < TIMES; i++) {
-            plainNanoSeconds = plainNanoSeconds + plainSerializationTest.benchmark();
+            kryoNanoSeconds = kryoNanoSeconds + kryoSerializerTest.benchmark();
         }
 
-        long sbeNanoSeconds = 0;
-        for (int i = 0; i < TIMES; i++) {
-            sbeNanoSeconds = sbeNanoSeconds + sbeSerializerTest.benchmark();
-        }
 
         System.out.println("------------- BENCHMARKS IN MICROSECONDS WITH SAMPLESET OF "+Populator.POPULATION_SIZE +" OBJECTS ------------------");
         System.out.println("kryo average after "+ TIMES +" runs: " + kryoNanoSeconds / TIMES/1000);

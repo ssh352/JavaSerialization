@@ -2,6 +2,7 @@ package tcw.serialzation.jackson;
 
 
 import com.google.common.base.Stopwatch;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.junit.Test;
 import tcw.domain.Employee;
 import tcw.serialzation.HelperUtils;
@@ -37,14 +38,11 @@ public class JacksonSerializerTest {
 
 
     public long benchmark() throws Exception {
-        JacksonSerializer jacksonSerializer = new JacksonSerializer();
+        ObjectMapper mapper = new ObjectMapper();
         List<Employee> employees = Populator.employees(POPULATION_SIZE);
         Stopwatch stopwatch = Stopwatch.createStarted();
-        Employee deserializedEmployee = null;
-        byte[] serializedEmployee = null;
         for (Employee employee : employees) {
-            serializedEmployee = jacksonSerializer.serialize(employee);
-            deserializedEmployee = jacksonSerializer.deserialize(serializedEmployee);
+            mapper.readValue(mapper.writeValueAsBytes(employee),Employee.class);
         }
         stopwatch.stop();
         return stopwatch.elapsed(TimeUnit.NANOSECONDS);

@@ -5,30 +5,24 @@ import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import tcw.domain.Employee;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
+import java.io.*;
 
 public class KryoSerializer {
 
-    private Kryo kryo = new Kryo();
+    private final Kryo kryo = new Kryo();
 
-    public byte[] serialize(Employee employee) throws IOException {
+    public <T> byte[] serialize(T t) throws IOException {
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        Output output = new Output(bos);
-        kryo.writeObject(output, employee);
-        output.close();
-        byte[] bytes = bos.toByteArray();
-        bos.close();
-        return bytes;
+        try (Output output = new Output(bos)){
+            kryo.writeObject(output, t);
+        }
+        return bos.toByteArray();
     }
 
-    public Employee deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
+    public <T> T deserialize(byte[] bytes,final Class<T> clazz) throws IOException, ClassNotFoundException {
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-        Input input = new Input(bis);
-        Employee employee = kryo.readObject(input, Employee.class);
-        input.close();
-        bis.close();
-        return employee;
+        try (Input input = new Input(bis)){
+            return kryo.readObject(input,clazz);
+        }
     }
 }

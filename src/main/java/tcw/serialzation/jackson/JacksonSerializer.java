@@ -13,16 +13,10 @@ public class JacksonSerializer {
     private ObjectMapper mapper = new ObjectMapper();
 
     public byte[] serialize(Employee employee) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        mapper.writeValue(bos, employee);
-        bos.close();
-        return bos.toByteArray();
+        return mapper.writeValueAsBytes(employee);
     }
 
     public Employee deserialize(byte[] bytes) throws IOException, ClassNotFoundException {
-        ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-        Employee employee = mapper.readValue(bis, Employee.class);
-        bis.close();
-        return employee;
+        return mapper.readValue(bytes, Employee.class);
     }
 }

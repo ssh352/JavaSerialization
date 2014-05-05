@@ -3,6 +3,8 @@ package tcw.serialzation.kryo;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import com.esotericsoftware.kryo.io.UnsafeInput;
+import com.esotericsoftware.kryo.io.UnsafeOutput;
 import com.google.common.base.Stopwatch;
 import org.junit.Test;
 import tcw.domain.Employee;
@@ -11,6 +13,7 @@ import tcw.serialzation.Populator;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -23,7 +26,7 @@ public class KryoSerializerTest {
         KryoSerializer kryoSerializer = new KryoSerializer();
         Employee employee = Populator.employee();
         byte[] serializedEmployee = kryoSerializer.serialize(employee);
-        Employee deserializedEmployee = kryoSerializer.deserialize(serializedEmployee);
+        Employee deserializedEmployee = kryoSerializer.deserialize(serializedEmployee,Employee.class);
         System.out.println(deserializedEmployee);
     }
 
@@ -41,25 +44,24 @@ public class KryoSerializerTest {
     public long benchmark() throws Exception {
 
         Kryo kryo = new Kryo();
+
         List<Employee> employees = Populator.employees(POPULATION_SIZE);
         Stopwatch stopwatch = Stopwatch.createStarted();
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        Output output = new Output(bos);
+        UnsafeOutput unsafeOutput = new UnsafeOutput(bos);
         for (Employee employee : employees) {
-            kryo.writeObject(output, employee);
+            kryo.writeObject(unsafeOutput, employee);
         }
-        output.close();
+        unsafeOutput.close();
         byte[] bytes = bos.toByteArray();
-        bos.close();
 
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-        Input input = new Input(bis);
+        UnsafeInput unsafeInput = new UnsafeInput(bis);
         Employee employeeDeserialized = new Employee();
         for (int i = 0; i < employees.size(); i++) {
-            employeeDeserialized = kryo.readObject(input, Employee.class);
+            employeeDeserialized = kryo.readObject(unsafeInput, Employee.class);
         }
-        input.close();
-        bis.close();
+        unsafeInput.close();
         stopwatch.stop();
         return stopwatch.elapsed(TimeUnit.NANOSECONDS);
     }

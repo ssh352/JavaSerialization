@@ -123,26 +123,19 @@ this.note = (String) in.readObject();
             <h2>Kode for å serialisere/deserialisere</h2>
                 <pre>
         <code data-trim class="java">
-public &lt;T extends Serializable&gt; byte[] serialize(T t) throws IOException {
-  try (ByteArrayOutputStream bos = new ByteArrayOutputStream()){
-    try (ObjectOutputStream os = new ObjectOutputStream(bos)){
-        os.writeObject(t);
-    }
-    return bos.toByteArray();
-  }
+ByteArrayOutputStream bos = new ByteArrayOutputStream();
+try (ObjectOutputStream os = new ObjectOutputStream(bos)){
+    os.writeObject(objekt);
 }
+byte[] bytes = bos.toByteArray();
         </code>
     </pre>
 
                  <pre>
         <code data-trim class="java">
-public &lt;T&gt; T deserialize(byte[] bytes,Class&lt;T&gt; clazz) throws
-                                IOException, ClassNotFoundException {
-  try ( ByteArrayInputStream bis = new ByteArrayInputStream(bytes)){
-    try (ObjectInputStream objectInputStream = new ObjectInputStream(bis)){
-        return clazz.cast(objectInputStream.readObject());
-    }
-  }
+ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+try (ObjectInputStream objectInputStream = new ObjectInputStream(bis)){
+    Objekt objekt = (Objekt) objectInputStream.readObject();
 }
         </code>
     </pre>
@@ -328,7 +321,30 @@ List&lt;String&gt; departments = ["IT", "RD", "TECH"];
             </div>
         </section>
         <section>
-            <h2>Kryo</h2>
+            <img src="img/kryo-logo.jpg" style="border-style: none">
+        </section>
+        <section>
+            <h2>Kode for å serialisere/deserialisere</h2>
+                <pre>
+        <code data-trim class="java">
+Kryo kryo = new Kryo();
+ByteArrayOutputStream bos = new ByteArrayOutputStream();
+try (Output output = new Output(bos)){
+    kryo.writeObject(output, Objekt.class);
+}
+byte[] bytes = bos.toByteArray();
+        </code>
+    </pre>
+
+                 <pre>
+        <code data-trim class="java">
+Kryo kryo = new Kryo();
+ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
+try (Input input = new Input(bis)){
+    Objekt objekt = kryo.readObject(input,clazz);
+}
+        </code>
+    </pre>
         </section>
         <section>
             <h3>Kryo</h3>
@@ -342,6 +358,22 @@ List&lt;String&gt; departments = ["IT", "RD", "TECH"];
         </section>
         <section>
             <h2>Jackson</h2>
+        </section>
+        <section>
+            <h2>Kode for å serialisere/deserialisere</h2>
+                <pre>
+        <code data-trim class="java">
+ObjectMapper mapper = new ObjectMapper();
+byte[] bytes = mapper.writeValueAsBytes(objekt);
+        </code>
+    </pre>
+
+                 <pre>
+        <code data-trim class="java">
+ObjectMapper mapper = new ObjectMapper();
+Objekt objekt = mapper.readValue(bytes, Objekt.class);
+        </code>
+    </pre>
         </section>
         <section>
             <h3>Jackson</h3>
@@ -358,7 +390,7 @@ List&lt;String&gt; departments = ["IT", "RD", "TECH"];
             </div>
         </section>
         <section>
-            <h2>Messagepack</h2>
+            <img src="img/messagepack.png" style="border-style: none">
         </section>
         <section>
             <h3>Messagepack</h3>
@@ -370,12 +402,12 @@ List&lt;String&gt; departments = ["IT", "RD", "TECH"];
             </div>
         </section>
         <section>
-            <h2>Avro</h2>
+            <img src="img/avro-logo.png" style="border-style: none">
         </section>
         <section>
             <h3>Avro</h3>
             <h4>450 bytes</h4>
-            <div style="text-align: left;color: #f5e810">
+            <div style="text-align: left;color: #f5e810; font-size: x-large">
                 4F 62 6A 01 02 16 61 76 72 6F 2E 73 63 68 65 6D
                 61 C4 05 7B 22 74 79 70 65 22 3A 22 72 65 63 6F
                 72 64 22 2C 22 6E 61 6D 65 22 3A 22 45 6D 70 6C
@@ -405,6 +437,43 @@ List&lt;String&gt; departments = ["IT", "RD", "TECH"];
                 20 44 6F 65 02 06 04 49 54 04 52 44 08 54 45 43
                 48 00 D8 DB 56 32 A1 95 ED F0 6A 5A 6E 6D A8 C5
                 6C C0
+            </div>
+        </section>
+        <section>
+            <h3>Avro</h3>
+            <h4>493 bytes - men bare 43 nye og 42 etter dette</h4>
+            <div style="text-align: left;color: #f5e810; font-size: x-large">
+                4F 62 6A 01 02 16 61 76 72 6F 2E 73 63 68 65 6D
+                61 C4 05 7B 22 74 79 70 65 22 3A 22 72 65 63 6F
+                72 64 22 2C 22 6E 61 6D 65 22 3A 22 45 6D 70 6C
+                6F 79 65 65 22 2C 22 6E 61 6D 65 73 70 61 63 65
+                22 3A 22 74 63 77 2E 64 6F 6D 61 69 6E 2E 61 76
+                72 6F 2E 6A 61 76 61 22 2C 22 66 69 65 6C 64 73
+                22 3A 5B 7B 22 6E 61 6D 65 22 3A 22 65 6D 70 6C
+                6F 79 65 65 49 64 22 2C 22 74 79 70 65 22 3A 5B
+                22 6C 6F 6E 67 22 2C 22 6E 75 6C 6C 22 5D 7D 2C
+                7B 22 6E 61 6D 65 22 3A 22 73 61 6C 65 72 79 22
+                2C 22 74 79 70 65 22 3A 5B 22 64 6F 75 62 6C 65
+                22 2C 22 6E 75 6C 6C 22 5D 7D 2C 7B 22 6E 61 6D
+                65 22 3A 22 63 6F 6E 73 75 6C 74 61 6E 74 22 2C
+                22 74 79 70 65 22 3A 5B 22 62 6F 6F 6C 65 61 6E
+                22 2C 22 6E 75 6C 6C 22 5D 7D 2C 7B 22 6E 61 6D
+                65 22 3A 22 65 6D 70 6C 6F 79 65 65 4E 61 6D 65
+                22 2C 22 74 79 70 65 22 3A 5B 22 73 74 72 69 6E
+                67 22 2C 22 6E 75 6C 6C 22 5D 7D 2C 7B 22 6E 61
+                6D 65 22 3A 22 64 65 70 61 72 74 6D 65 6E 74 73
+                22 2C 22 74 79 70 65 22 3A 5B 22 6E 75 6C 6C 22
+                2C 7B 22 74 79 70 65 22 3A 22 61 72 72 61 79 22
+                2C 22 69 74 65 6D 73 22 3A 22 73 74 72 69 6E 67
+                22 7D 5D 2C 22 64 65 66 61 75 6C 74 22 3A 6E 75
+                6C 6C 7D 5D 7D 00 8D E0 B2 77 C3 D9 8F 00 65 0A
+                70 A9 51 11 DF 9B 04 A8 01 00 86 A1 D8 9F EE 47
+                00 B8 1E 85 EB 01 24 FE 40 00 01 00 10 4A 6F 68
+                6E 20 44 6F 65 02 06 04 49 54 04 52 44 08 54 45
+                43 48 00 00 86 A1 D8 9F EE 47 00 B8 1E 85 EB 01
+                24 FE 40 00 01 00 10 4A 6F 68 6E 20 44 6F 65 02
+                06 04 49 54 04 52 44 08 54 45 43 48 00 8D E0 B2
+                77 C3 D9 8F 00 65 0A 70 A9 51 11 DF 9B
             </div>
         </section>
         <section>
