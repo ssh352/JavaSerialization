@@ -42,25 +42,23 @@ public class PlainSerializationTest {
     public long benchmark() throws Exception {
         List<Employee> employees = Populator.employees(POPULATION_SIZE);
         Stopwatch stopwatch = Stopwatch.createStarted();
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream objectOutputStream = new ObjectOutputStream(bos);
-        for (Employee employee : employees) {
-            objectOutputStream.writeObject(employee);
-        }
 
-        objectOutputStream.close();
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try (ObjectOutputStream os = new ObjectOutputStream(bos)) {
+            for (Employee employee : employees) {
+                os.writeObject(employee);
+            }
+        }
         byte[] bytes = bos.toByteArray();
-        bos.close();
 
         ByteArrayInputStream bis = new ByteArrayInputStream(bytes);
-        ObjectInputStream objectInputStream = new ObjectInputStream(bis);
         Employee employeeDeserialized = new Employee();
-        for (int i = 0; i < employees.size(); i++) {
-            employeeDeserialized = (Employee) objectInputStream.readObject();
+        try (ObjectInputStream objectInputStream = new ObjectInputStream(bis)) {
+            for (int i = 0; i < employees.size(); i++) {
+                employeeDeserialized = (Employee) objectInputStream.readObject();
+            }
         }
-        objectInputStream.close();
-        bis.close();
-       stopwatch.stop();
+        stopwatch.stop();
         return stopwatch.elapsed(TimeUnit.NANOSECONDS);
     }
 }

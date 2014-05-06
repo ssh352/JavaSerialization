@@ -24,6 +24,8 @@
 <![endif]-->
 <div class="reveal">
     <div class="slides">
+
+
         <section data-markdown>
             <script type="text/template">
                 ##  Serialisering av data - et løst problem?
@@ -800,8 +802,94 @@ objekt = YtreObjekt.Objekt.newBuilder().mergeFrom(bytes).build();
             <h3>SBE</h3>
             <h4>Ikke resultat - Pga UNSAFE direkte lesing</h4>
         </section>
+        <section>
+            <div id="graph2" style="width: 900px; height: 700px;"></div>
+        </section>
+        <section>
+            <div id="graph3" style="width: 900px; height: 700px;"></div>
+        </section>
+        <section>
+            <div id="graph4" style="width: 900px; height: 700px;"></div>
+        </section>
+
         <script src="bower_components/reveal.js/lib/js/head.min.js"></script>
         <script src="bower_components/reveal.js/js/reveal.min.js"></script>
+    <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Verktøy', '10 000 Objects'],
+                ['Serializable',  58428],
+                ['Externalizable',  39833,],
+                ['Kryo',  47062],
+                ['Jackson',  130697],
+                ['Messagepack',  46933],
+                ['Avro',  126322],
+                ['Protocol buffers',  30066],
+                ['SBE',  6646]
+            ]);
+
+            var options = {
+                title: 'Benchmarks',
+                vAxis: {title: 'Verktøy',  titleTextStyle: {color: 'red'}}
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('graph2'));
+            chart.draw(data, options);
+        }
+    </script>
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Verktøy', '100 000 Objects'],
+                ['Serializable',  391595],
+                ['Externalizable',  282253,],
+                ['Kryo',  269675],
+                ['Jackson',  532134],
+                ['Messagepack',  241435],
+                ['Avro',  340083],
+                ['Protocol buffers',  121441],
+                ['SBE',  12415]
+            ]);
+
+            var options = {
+                title: 'Benchmarks',
+                vAxis: {title: 'Verktøy',  titleTextStyle: {color: 'red'}}
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('graph3'));
+            chart.draw(data, options);
+        }
+    </script>
+    <script type="text/javascript">
+        google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+                ['Verktøy', '1 000 000 Objects'],
+                ['Serializable',  6583342],
+                ['Externalizable',  4771884,],
+                ['Kryo',  3638694],
+                ['Jackson',  6712376],
+                ['Messagepack',  3941362],
+                ['Avro',  5443522],
+                ['Protocol buffers',  3842398],
+                ['SBE',  107826]
+            ]);
+
+            var options = {
+                title: 'Benchmarks',
+                vAxis: {title: 'Verktøy',  titleTextStyle: {color: 'red'}}
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('graph4'));
+            chart.draw(data, options);
+        }
+    </script>
 
         <script>
             Reveal.initialize({
