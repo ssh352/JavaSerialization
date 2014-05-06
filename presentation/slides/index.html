@@ -43,12 +43,15 @@
                     * Versjonering
                     * Ytelse
                 * Andre serialiserings bibliotek/verktøy
-                    * Kryo
-                    * Jackson
-                    * Messagepack
-                    * Avro
-                    * Protocol Buffers
-                    * SBE
+                    * Uten kildekode generering
+                        * Kryo
+                        * Jackson
+                        * Messagepack
+                    * Med kildekode generering
+                        * Avro
+                        * Protocol Buffers
+                        * SBE
+                * Benchmarks
                 * Konklusjon
             </script>
         </section>
@@ -226,6 +229,19 @@ Objekt objekt = (Objekt) objectInputStream.readExternal();
             <script type="text/template">
             ## Versjonering
             </script>
+        </section>
+        <section>
+            <h2>serialVersionUID og serialver</h2>
+              <pre>
+        <code data-trim class="java">
+public class Employee implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+
+    ...
+}
+        </code>
+    </pre>
         </section>
         <section data-markdown>
             <script type="text/template">
@@ -458,6 +474,11 @@ try (Input input = new Input(bis)){
                 </tr>
             </table>
         </section>
+        <section data-markdown>
+            <script type="text/template">
+            ## Litt mer om Kryo
+            </script>
+        </section>
         <section>
             <h2>Kode for å serialisere/deserialisere</h2>
                 <pre>
@@ -528,18 +549,23 @@ Objekt objekt = mapper.readValue(bytes, Objekt.class);
                 </tr>
             </table>
         </section>
+        <section data-markdown>
+            <script type="text/template">
+                ##Litt mer om Messagepack
+            </script>
+        </section>
         <section>
             <h2>Kode for å serialisere/deserialisere</h2>
                 <pre>
         <code data-trim class="java">
-ObjectMapper mapper = new ObjectMapper();
-byte[] bytes = mapper.writeValueAsBytes(objekt);
+MessagePack msgpack = new MessagePack()
+byte[] bytes = msgpack.write(objekt)
         </code>
     </pre>
                  <pre>
         <code data-trim class="java">
-ObjectMapper mapper = new ObjectMapper();
-Objekt objekt = mapper.readValue(bytes, Objekt.class);
+MessagePack msgpack = new MessagePack()
+Objekt objekt = msgpack.read(bytes, Objekt.class);
         </code>
     </pre>
         </section>
@@ -591,6 +617,10 @@ Objekt objekt = mapper.readValue(bytes, Objekt.class);
                     <td>Dokumentasjon og ytelse</td>
                 </tr>
             </table>
+        </section>
+        <section>
+            <h2>Kildekode generering</h2>
+
         </section>
         <section>
             <h2>Kode for å serialisere/deserialisere</h2>
@@ -801,6 +831,9 @@ objekt = YtreObjekt.Objekt.newBuilder().mergeFrom(bytes).build();
         <section>
             <h3>SBE</h3>
             <h4>Ikke resultat - Pga UNSAFE direkte lesing</h4>
+        </section>
+        <section>
+            <h2>Benchmarks</h2>
         </section>
         <section>
             <div id="graph2" style="width: 900px; height: 700px;"></div>
