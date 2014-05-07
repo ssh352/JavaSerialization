@@ -62,7 +62,17 @@
         </section>
         <section>
             <h2>Serialisering</h2>
-            <img src="img/test.svg" style="border-style: none">
+            Prosessen å oversette en datastruktur eller objekttilstand til et format som kan bli lagret/sendt
+            for så å bli rekonstruert identisk på samme eller annen maskin/miljø.
+        </section>
+        <section data-markdown>
+            <script type="text/template">
+            ##Serialisering stikkord
+* Endianness (Java big-endian, x86 little-endian)
+* Bytepacking
+* Swizzling/Unswizzling (Ikke lurt å serialisere Thread i Java)
+* Versjonering
+            </script>
         </section>
         <section data-markdown>
             <script type="text/template">
@@ -147,10 +157,8 @@ try (ObjectInputStream objectInputStream = new ObjectInputStream(bis)){
         </section>
 <section data-markdown>
     <script type="text/template">
-        ## writeObject
-        * Objectet må selv ha eller arve fra et Object som:
-            * Implementer serializable
-            * Har en tilgjengelig tom konstuktør
+        ## writeObject i korte trekk
+        * Objectet må selv ha eller arve fra et object som implementer serializable og har en tilgjengelig tom konstuktør.
         * writeObject blir kalt rekursivt fra løvnode til høyest forelder som fyller kriterene for å være serialiserbar
         * Alle felt som er ikke transient eller static blir tatt med
         * Hvis ikke Objectet/ene har serialVersionUID blir en 64-bits hash kalkulert
@@ -229,6 +237,11 @@ Objekt objekt = (Objekt) objectInputStream.readExternal();
             <script type="text/template">
             ## Versjonering
             </script>
+        </section>
+        <section>
+            <h2>Versjonering</h2>
+            I det et objekt blir brukt til serialisering må det behandles
+            på samme måte som et public api
         </section>
         <section>
             <h2>serialVersionUID og serialver</h2>
@@ -405,6 +418,9 @@ List&lt;String&gt; departments = ["IT", "RD", "TECH"];
         <section data-markdown>
             <script type="text/template">
                 ## Litt mer om Kryo
+                * Tilbyr UNSAFE
+                * Bruker bytecode generation (ReflectASM)
+                * Mange optimaliseringer (Store objekt grafer)
             </script>
         </section>
         <section>
@@ -480,11 +496,6 @@ try (Input input = new Input(bis)){
                 </tr>
             </table>
         </section>
-        <section data-markdown>
-            <script type="text/template">
-            ## Litt mer om Jackson
-            </script>
-        </section>
         <section>
             <h2>Kode for å serialisere/deserialisere</h2>
                 <pre>
@@ -558,6 +569,8 @@ Objekt objekt = mapper.readValue(bytes, Objekt.class);
         <section data-markdown>
             <script type="text/template">
                 ##Litt mer om Messagepack
+                * En binær json representasjon
+                * Ikke bruk java annotasjonen
             </script>
         </section>
         <section>
@@ -1115,6 +1128,9 @@ employee.wrapForDecode(directBuffer, bufferOffset, actingBlockLength, actingVers
         </section>
         <section>
             <div id="graph4" style="width: 900px; height: 700px;"></div>
+        </section>
+        <section>
+        <h2>Konklusjon</h2>
         </section>
 
         <script src="bower_components/reveal.js/lib/js/head.min.js"></script>
