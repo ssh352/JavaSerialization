@@ -261,6 +261,7 @@ public class Employee implements Serializable {
         <section data-markdown>
             <script type="text/template">
                 ##  Benchmarking
+                * Hardware
                 * Hvilken type data (stor vs lite objekt graf)
                 * Innholder collection typer
                 * Ekvivalent representasjon (Versjon data osv.)
@@ -401,6 +402,11 @@ List&lt;String&gt; departments = ["IT", "RD", "TECH"];
                 </tr>
             </table>
         </section>
+        <section data-markdown>
+            <script type="text/template">
+                ## Litt mer om Kryo
+            </script>
+        </section>
         <section>
             <h2>Kode for å serialisere/deserialisere</h2>
                 <pre>
@@ -476,7 +482,7 @@ try (Input input = new Input(bis)){
         </section>
         <section data-markdown>
             <script type="text/template">
-            ## Litt mer om Kryo
+            ## Litt mer om Jackson
             </script>
         </section>
         <section>
@@ -586,7 +592,7 @@ Objekt objekt = msgpack.read(bytes, Objekt.class);
             <table>
                 <tr>
                     <td width="400">Språk</td>
-                    <td>Java,C/C++,C#</td>
+                    <td>Java,C/C++,C#,Python</td>
                 </tr>
                 <tr>
                     <td>Bruk</td>
@@ -594,7 +600,7 @@ Objekt objekt = msgpack.read(bytes, Objekt.class);
                 </tr>
                 <tr>
                     <td>Versjonering</td>
-                    <td>Union og default verdier</td>
+                    <td>Tja, Union og default verdier</td>
                 </tr>
                 <tr>
                     <td>Format</td>
@@ -618,10 +624,89 @@ Objekt objekt = msgpack.read(bytes, Objekt.class);
                 </tr>
             </table>
         </section>
-        <section>
-            <h2>Kildekode generering</h2>
-
+        <section data-markdown>
+            <script type="text/template">
+                ##Litt mer om Avro
+                * Brukes i Apache Hadoop
+                * Hele skjemaet er med i meldingen
+                * Kan validere data i runtime
+                * Passer til dynamiske språk
+            </script>
         </section>
+        <section data-markdown>
+            <script type="text/template">
+                ##Kildekode generering
+                * Opprett en *.avsc (json) fil under src/main/avro
+                * Legg til avro-maven-plugin i pom'en
+            </script>
+        </section>
+        <section>
+            <h2>employee.avsc</h2>
+             <pre>
+        <code data-trim class="javascript">
+{"namespace": "tcw.domain.avro.java",
+    "type": "record",
+    "name": "Employee",
+    "fields": [
+    {
+    "name": "employeeId",
+    "type": ["long", "null"]
+    },
+    {
+    "name": "salery",
+    "type": ["double", "null"]
+    },
+    {
+    "name": "consultant",
+    "type": ["boolean", "null"]
+    },
+    {
+    "name": "employeeName",
+    "type": ["string", "null"]
+    },
+    {
+    "name": "departments",
+    "type": "array",
+    "type":["null",
+    {
+    "type":"array",
+    "items":"string"
+    }
+    ],
+    "default":null
+    }
+]
+}
+        </code>
+    </pre>
+        </section>
+
+            <section>
+        <h2>Domene Objekter</h2>
+         <pre>
+        <code data-trim class="java">
+User user1 = new User();
+user1.setName("Alyssa");
+user1.setFavoriteNumber(256);
+        </code>
+    </pre>
+
+        <pre>
+        <code data-trim class="java">
+User user2 = new User("Ben", 7, "red");
+        </code>
+    </pre>
+        <pre>
+        <code data-trim class="java">
+User user3 = User.newBuilder()
+.setName("Charlie")
+.setFavoriteColor("blue")
+.setFavoriteNumber(null)
+.build();
+        </code>
+    </pre>
+</section>
+
         <section>
             <h2>Kode for å serialisere/deserialisere</h2>
                 <pre>
@@ -759,6 +844,56 @@ try (DataFileReader&lt;Objekt&gt; dataFileReader = new DataFileReader&lt;&gt;(sb
                 </tr>
             </table>
         </section>
+        <section data-markdown>
+            <script type="text/template">
+                ##Litt mer om Protocol Buffers
+                * Googles standard serialiserings verktøy
+                * Utviklet spesielt med versjonering i tankene
+                * NB! er ikke effektiv på repeated groups av ikke primitiver
+            </script>
+        </section>
+
+        <section data-markdown>
+            <script type="text/template">
+                ##Kildekode generering
+                * Opprett en *.proto (dsl) fil under src/main/proto
+                * Installer Protocol Buffers (Kan være litt problemer med noen type Linux (Ubuntu))
+                * protoc -I=$SRC_DIR --java_out=$DST_DIR $SRC_DIR/employee.proto
+            </script>
+        </section>
+        <section>
+            <h2>employee.proto</h2>
+             <pre>
+        <code data-trim class="proto">
+package employees;
+
+option java_package = "tcw.domain.protobuf";
+option java_outer_classname = "EmployeeProto";
+
+message Employee {
+    optional int64 employeeId = 1;
+    optional double salery = 2;
+    optional bool consultant = 3;
+    optional string employeeName = 4;
+    repeated string departments = 5;
+}
+        </code>
+    </pre>
+        </section>
+
+        <section>
+            <h2>Domene Objekter</h2>
+         <pre>
+        <code data-trim class="java">
+EmployeeProto.Employee.newBuilder()
+    .setEmployeeId(1234567891011L)
+    .setSalery(123456.12)
+    .setConsultant(true)
+    .setEmployeeName("John Doe")
+.addAllDepartments(Lists.newArrayList("IT", "RD", "TECH")).build();
+        </code>
+    </pre>
+        </section>
         <section>
             <h2>Kode for å serialisere/deserialisere</h2>
                 <pre>
@@ -824,9 +959,146 @@ objekt = YtreObjekt.Objekt.newBuilder().mergeFrom(bytes).build();
                 </tr>
             </table>
         </section>
+        <section data-markdown>
+            <script type="text/template">
+                ##Kildekode generering
+                * Opprett en *.xml fil under src/main/sbe
+                * Clone prosjektet fra github
+                * Følge installasjonsinstrukser på github siden
+                * java -Dsbe.output.dir=&lt;output dir&gt; -jar sbe.jar &lt;message-declarations-file.xml&gt;
+            </script>
+        </section>
+        <section>
+            <h2>employee.xml</h2>
+             <pre>
+        <code data-trim class="proto">
+&lt;messageSchema package="tcw.domain.sbe"
+id="1"
+version="0"
+semanticVersion="5.2"
+description="JavaBin test"
+byteOrder="littleEndian"&gt;
+
+&lt;types&gt;
+&lt;composite name="messageHeader" description="Message identifiers and length of message root"&gt;
+&lt;type name="blockLength" primitiveType="uint16"/&gt;
+&lt;type name="templateId" primitiveType="uint16"/&gt;
+&lt;type name="schemaId" primitiveType="uint16"/&gt;
+&lt;type name="version" primitiveType="uint16"/&gt;
+&lt;/composite&gt;
+&lt;composite name="varDataEncoding"&gt;
+&lt;type name="length" primitiveType="uint8"/&gt;
+&lt;type name="varData" primitiveType="uint8" length="0" characterEncoding="UTF-8"/&gt;
+&lt;/composite&gt;
+&lt;/types&gt;
+
+&lt;types&gt;
+&lt;enum name="BooleanType" encodingType="uint8"&gt;
+&lt;validValue name="FALSE"&gt;0&lt;/validValue&gt;
+&lt;validValue name="TRUE"&gt;1&lt;/validValue&gt;
+&lt;/enum&gt;
+&lt;/types&gt;
+
+&lt;message name="Employee" id="1" description="Description of a basic Employee"&gt;
+&lt;field name="employeeId" id="1" type="uint64"/&gt;
+&lt;field name="salery" id="2" type="double"/&gt;
+&lt;field name="consultant" id="3" type="BooleanType"/&gt;
+&lt;data name="employeeName" id="4" type="varDataEncoding"/&gt;
+&lt;data name="departmentA" id="5" type="varDataEncoding"/&gt;
+&lt;data name="departmentB" id="6" type="varDataEncoding"/&gt;
+&lt;data name="departmentC" id="7" type="varDataEncoding"/&gt;
+&lt;/message&gt;
+
+&lt;/messageSchema&gt;
+        </code>
+    </pre>
+        </section>
+
+
         <section>
             <h2>Kode for å serialisere/deserialisere</h2>
-            <a href="img/sbe.txt">OMG</a>
+                             <pre>
+        <code data-trim class="java">
+public class SbeSerializer {
+
+private static final Employee EMPLOYEE_SBE = new Employee();
+private static final MessageHeader MESSAGE_HEADER = new MessageHeader();
+private static byte[] NAME;
+private static byte[] DEPARTMENTA;
+private static byte[] DEPARTMENTB;
+private static byte[] DEPARTMENTC;
+final ByteBuffer byteBuffer = ByteBuffer.allocateDirect(4096);
+final DirectBuffer directBuffer = new DirectBuffer(byteBuffer);
+
+static {
+try {
+NAME = "John Doe".getBytes(Employee.employeeNameCharacterEncoding());
+DEPARTMENTA = "IT".getBytes(Employee.departmentACharacterEncoding());
+DEPARTMENTB = "RD".getBytes(Employee.departmentBCharacterEncoding());
+DEPARTMENTC = "TECH".getBytes(Employee.departmentCCharacterEncoding());
+} catch (UnsupportedEncodingException e) {
+e.printStackTrace();
+}
+}
+
+public void serializeDeserialize() throws IOException {
+
+final short messageTemplateVersion = 0;
+int bufferOffset = 0;
+
+MESSAGE_HEADER.wrap(directBuffer, bufferOffset, messageTemplateVersion)
+.blockLength(EMPLOYEE_SBE.sbeBlockLength())
+.templateId(EMPLOYEE_SBE.sbeTemplateId())
+.schemaId(EMPLOYEE_SBE.sbeSchemaId())
+.version(EMPLOYEE_SBE.sbeSchemaVersion());
+
+bufferOffset += MESSAGE_HEADER.size();
+
+encode(EMPLOYEE_SBE, directBuffer, bufferOffset);
+
+bufferOffset = 0;
+MESSAGE_HEADER.wrap(directBuffer, bufferOffset, messageTemplateVersion);
+
+final int actingBlockLength = MESSAGE_HEADER.blockLength();
+final int schemaId = MESSAGE_HEADER.schemaId();
+final int actingVersion = MESSAGE_HEADER.version();
+
+bufferOffset += MESSAGE_HEADER.size();
+
+try {
+decode(EMPLOYEE_SBE, directBuffer, bufferOffset, actingBlockLength, actingVersion);
+} catch (Exception e) {
+e.printStackTrace();
+}
+}
+
+public static int encode(final Employee employee, final DirectBuffer directBuffer, final int bufferOffset) {
+final int srcOffset = 0;
+employee.wrapForEncode(directBuffer, bufferOffset)
+.employeeId(12345)
+.salery(123456.12)
+.consultant(BooleanType.TRUE)
+.putEmployeeName(NAME, srcOffset, NAME.length);
+employee.putDepartmentA(DEPARTMENTA, srcOffset, DEPARTMENTA.length);
+employee.putDepartmentB(DEPARTMENTB, srcOffset, DEPARTMENTB.length);
+employee.putDepartmentC(DEPARTMENTC, srcOffset, DEPARTMENTC.length);
+return employee.size();
+}
+
+
+public static void decode(final Employee employee,
+final DirectBuffer directBuffer,
+final int bufferOffset,
+final int actingBlockLength,
+final int actingVersion) throws Exception {
+final byte[] buffer = new byte[128];
+final StringBuilder sb = new StringBuilder();
+employee.wrapForDecode(directBuffer, bufferOffset, actingBlockLength, actingVersion);
+}
+}
+
+        </code>
+    </pre>
         </section>
         <section>
             <h3>SBE</h3>
